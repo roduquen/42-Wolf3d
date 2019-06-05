@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/05 11:05:03 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/05 19:46:31 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	parse_file(int fd, t_wolf *data)
 	}
 	return (ret);
 }
-#include <stdio.h>
+
 static int	resize_map(t_wolf *data)
 {
 	int			i;
@@ -70,21 +70,23 @@ static int	resize_map(t_wolf *data)
 	char		*tmp;
 
 	i = 0;
-	size = (data->map_width + 1) * data->map_height;
-	if (!(tmp = (char*)malloc(sizeof(char) * (size + 5))))
+	size = data->map_width * data->map_height;
+	if (!(tmp = (char*)malloc(sizeof(char) * (size + 1))))
 		return (1);
 	while (i < data->map_width - 1)
 		tmp[i++] = 'x';
 	tmp[i++] = '\n';
 	actual_map = 0;
-	while (i < size + 4)
+	while (i < size)
 	{
-		if (i % data->map_width == 0 || i % data->map_width - 2 == 0)
+		if (i % data->map_width == 0 || i % data->map_width
+			== data->map_width - 2)
 			tmp[i++] = 'x';
-		else if (i % data->map_width - 1 == 0)
+		else if (i % data->map_width == data->map_width - 1)
 		{
 			tmp[i++] = '\n';
-			actual_map++;
+			if (data->map[actual_map])
+				actual_map++;
 		}
 		else if (data->map[actual_map] && data->map[actual_map] != '\n')
 			tmp[i++] = data->map[actual_map++];
@@ -94,8 +96,6 @@ static int	resize_map(t_wolf *data)
 	tmp[i] = 0;
 	free(data->map);
 	data->map = tmp;
-	ft_putstr(data->map);
-	printf("\nwidth = %d , height = %d\n", data->map_width, data->map_height);
 	return (0);
 }
 
