@@ -1,28 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   maths.c                                            :+:      :+:    :+:   */
+/*   apply_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/28 04:36:21 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/07 13:38:33 by roduquen         ###   ########.fr       */
+/*   Created: 2019/06/07 14:41:44 by roduquen          #+#    #+#             */
+/*   Updated: 2019/06/07 16:44:19 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include "wolf.h"
-
-double		to_radian(double degrees)
+void			apply_textures(t_thread *thread, int type)
 {
-	return (M_PI * degrees / 180.0);
-}
-
-t_vec2d		vec2d(double x, double y)
-{
-	t_vec2d		vec;
-
-	vec.x = x;
-	vec.y = y;
-	return (vec);
-}
+	

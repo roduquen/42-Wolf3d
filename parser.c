@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/05 19:46:31 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/07 13:52:45 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 static int	check_if_well_formated(char *map)
 {
@@ -65,7 +66,6 @@ static int	parse_file(int fd, t_wolf *data)
 static int	resize_map(t_wolf *data)
 {
 	int			i;
-	int			actual_map;
 	int			size;
 	char		*tmp;
 
@@ -76,26 +76,11 @@ static int	resize_map(t_wolf *data)
 	while (i < data->map_width - 1)
 		tmp[i++] = 'x';
 	tmp[i++] = '\n';
-	actual_map = 0;
-	while (i < size)
-	{
-		if (i % data->map_width == 0 || i % data->map_width
-			== data->map_width - 2)
-			tmp[i++] = 'x';
-		else if (i % data->map_width == data->map_width - 1)
-		{
-			tmp[i++] = '\n';
-			if (data->map[actual_map])
-				actual_map++;
-		}
-		else if (data->map[actual_map] && data->map[actual_map] != '\n')
-			tmp[i++] = data->map[actual_map++];
-		else
-			tmp[i++] = 'x';
-	}
-	tmp[i] = 0;
+	fill_map(data, size, tmp, i);
 	free(data->map);
 	data->map = tmp;
+	if (!(data->board = ft_strsplit(data->map, '\n')))
+		return (1);
 	return (0);
 }
 
@@ -117,8 +102,8 @@ static int	translate_map_to_rectangular_map(t_wolf *data)
 		}
 		i++;
 	}
-	data->map_width += 2;
-	data->map_height += 3;
+	data->map_width += 3;
+	data->map_height += 2 + (data->map[i - 1] == '\n' ? 0 : 1);
 	return (resize_map(data));
 }
 

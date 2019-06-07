@@ -6,28 +6,69 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 15:12:58 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/03 14:04:32 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/07 16:24:38 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 
-void		camera_carry_event(t_wolf *data)
+__attribute__((destructor))void fdfsdf()
+{
+	while (1) ;
+}
+
+static void	camera_carry_event_2(t_wolf *data, t_vec2d tmp)
+{
+	tmp = vec2d_rotate(data->camera.direction, to_radian(90.0));
+	if (data->camera.key & CAMERA_RIGHT)
+	{
+		if (data->board[(int)(data->camera.position.x - tmp.x
+				* data->camera.move_speed)][(int)data->camera.position.y]
+			!= 'x')
+			data->camera.position.x -= tmp.x * data->camera.move_speed;
+		if (data->board[(int)(data->camera.position.x)]
+			[(int)(data->camera.position.y - tmp.y * data->camera.move_speed)]
+			!= 'x')
+			data->camera.position.y -= tmp.y * data->camera.move_speed;
+	}
+	if (data->camera.key & CAMERA_LEFT)
+	{
+		if (data->board[(int)(data->camera.position.x + tmp.x
+				* data->camera.move_speed)][(int)data->camera.position.y]
+			!= 'x')
+			data->camera.position.x += tmp.x * data->camera.move_speed;
+		if (data->board[(int)(data->camera.position.x)]
+			[(int)(data->camera.position.y + tmp.y * data->camera.move_speed)]
+			!= 'x')
+			data->camera.position.y += tmp.y * data->camera.move_speed;
+	}
+}
+
+void		camera_carry_event(t_wolf *data, t_vec2d tmp)
 {
 	if (data->camera.key & CAMERA_FRONT)
-		data->camera.position = vec2d_add(data->camera.position
-				, data->camera.direction);
+	{
+		if (data->board[(int)(data->camera.position.x + data->camera.direction.x
+				* data->camera.move_speed)][(int)data->camera.position.y]
+			!= 'x')
+			data->camera.position.x += tmp.x * data->camera.move_speed;
+		if (data->board[(int)(data->camera.position.x)]
+			[(int)(data->camera.position.y + data->camera.direction.y
+				* data->camera.move_speed)] != 'x')
+			data->camera.position.y += tmp.y * data->camera.move_speed;
+	}
 	if (data->camera.key & CAMERA_BACK)
-		data->camera.position = vec2d_sub(data->camera.position
-				, data->camera.direction);
-	if (data->camera.key & CAMERA_LEFT)
-		data->camera.position = vec2d_add(data->camera.position
-				, vec2d_unit(vec2d_rotate(data->camera.direction
-						, to_radian(90.0))));
-	if (data->camera.key & CAMERA_RIGHT)
-		data->camera.position = vec2d_add(data->camera.position
-				, vec2d_unit(vec2d_rotate(data->camera.direction
-						, to_radian(270.0))));
+	{
+		if (data->board[(int)(data->camera.position.x - data->camera.direction.x
+				* data->camera.move_speed)][(int)data->camera.position.y]
+			!= 'x')
+			data->camera.position.x -= tmp.x * data->camera.move_speed;
+		if (data->board[(int)(data->camera.position.x)]
+			[(int)(data->camera.position.y - data->camera.direction.y
+				* data->camera.move_speed)] != 'x')
+			data->camera.position.y -= tmp.y * data->camera.move_speed;
+	}
+	camera_carry_event_2(data, tmp);
 }
 
 void		camera_downkey_event(t_wolf *data)
@@ -44,30 +85,22 @@ void		camera_downkey_event(t_wolf *data)
 
 void		camera_upkey_event(t_wolf *data)
 {
-	if (data->event.key.keysym.sym == SDLK_RIGHT)
+	if (data->event.key.keysym.sym == SDLK_d)
 		data->camera.key &= ~CAMERA_RIGHT;
-	else if (data->event.key.keysym.sym == SDLK_LEFT)
+	else if (data->event.key.keysym.sym == SDLK_a)
 		data->camera.key &= ~CAMERA_LEFT;
-	else if (data->event.key.keysym.sym == SDLK_UP)
+	else if (data->event.key.keysym.sym == SDLK_w)
 		data->camera.key &= ~CAMERA_FRONT;
-	else if (data->event.key.keysym.sym == SDLK_DOWN)
+	else if (data->event.key.keysym.sym == SDLK_s)
 		data->camera.key &= ~CAMERA_BACK;
 }
 
 void		camera_mouse_event(t_wolf *data)
 {
-	t_vec2d		vec;
-
-	if (data->event.motion.xrel)
-	{
-		data->camera.angle += (data->event.motion.xrel / 10.0);
-		if (data->camera.angle > 360)
-			data->camera.angle -= 360;
-		else if (data->camera.angle < 0)
-			data->camera.angle += 360;
-		vec.x = 1;
-		vec.y = 0;
-		data->camera.direction = vec2d_unit(vec2d_rotate(vec
-				, to_radian(data->camera.angle)));
-	}
+	data->camera.direction = vec2d_rotate(data->camera.direction
+			, to_radian(360 - data->camera.angle_speed
+				* data->event.motion.xrel));
+	data->camera.plane = vec2d_rotate(data->camera.plane
+			, to_radian(360 - data->camera.angle_speed
+				* data->event.motion.xrel));
 }
