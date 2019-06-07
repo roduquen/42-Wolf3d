@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/07 15:03:41 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 00:21:38 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct	s_wolf
 	double			spacing;
 	SDL_Surface		*surfaces[6];
 	SDL_Texture		*walls[4];
+	unsigned int	*textures[4];
 	char			**board;
 }				t_wolf;
 
@@ -77,6 +78,7 @@ typedef struct	s_ray
 	t_vec2d		side_dist;
 	double		x_wall;
 	double		x_tex;
+	int			y_tex;
 	double		orto;
 	t_vec2d		delta;
 	t_vec2d		step;
@@ -132,5 +134,6 @@ t_vec2d			vec2d(double x, double y);
 int				raycasting(t_wolf *data);
 void			*calcul_ray_by_thread(void *data);
 void			draw_pixel_column(t_thread *thread);
+void			apply_textures(t_thread *thread, int type, int i, int height);
 
 #endif

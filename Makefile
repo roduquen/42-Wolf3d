@@ -15,7 +15,8 @@ SRCS = wolf3d.c \
 	   camera.c \
 	   vec2d.c \
 	   texture.c \
-	   utils.c
+	   utils.c \
+	   apply_textures.c
 OBJ = $(notdir $(SRCS:.c=.o))
 
 all : $(NAME)

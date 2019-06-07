@@ -6,16 +6,11 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 15:12:58 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/07 16:24:38 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 01:11:52 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
-
-__attribute__((destructor))void fdfsdf()
-{
-	while (1) ;
-}
 
 static void	camera_carry_event_2(t_wolf *data, t_vec2d tmp)
 {

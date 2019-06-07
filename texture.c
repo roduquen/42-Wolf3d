@@ -6,49 +6,35 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/06 14:34:03 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/07 14:36:28 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 01:12:59 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include <SDL.h>
 
-static int		create_last_textures(t_wolf *data)
-{
-	if (!(data->walls[3] = SDL_CreateTextureFromSurface(data->renderer
-					, data->surfaces[3])))
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION
-			, "Couldn't create texture from surface: %s", SDL_GetError());
-		return (leave_sdl_and_program(data, 1));
-	}
-	return (0);
-}
-
 static int		create_texture_from_surface(t_wolf *data)
 {
-	if (!(data->walls[0] = SDL_CreateTextureFromSurface(data->renderer
-					, data->surfaces[0])))
+	int			i;
+	SDL_Surface	*tmp[4];
+
+	i = 0;
+	while (i < 4)
 	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION
-			, "Couldn't create texture from surface: %s", SDL_GetError());
-		return (leave_sdl_and_program(data, 1));
+		tmp[i] = SDL_ConvertSurfaceFormat(data->surfaces[i]
+				, SDL_PIXELFORMAT_ARGB8888, 0);
+		i++;
 	}
-	if (!(data->walls[1] = SDL_CreateTextureFromSurface(data->renderer
-					, data->surfaces[1])))
+	i = 0;
+	while (i < 4)
+		SDL_FreeSurface(data->surfaces[i++]);
+	i = 0;
+	while (i < 4)
 	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION
-			, "Couldn't create texture from surface: %s", SDL_GetError());
-		return (leave_sdl_and_program(data, 1));
+		data->surfaces[i] = tmp[i];
+		i++;
 	}
-	if (!(data->walls[2] = SDL_CreateTextureFromSurface(data->renderer
-					, data->surfaces[2])))
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION
-			, "Couldn't create texture from surface: %s", SDL_GetError());
-		return (leave_sdl_and_program(data, 1));
-	}
-	return (create_last_textures(data));
+	return (0);
 }
 
 int				load_textures(t_wolf *data)
