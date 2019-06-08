@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 15:03:04 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 17:29:05 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	check_if_well_formated(char *map)
 	{
 		if (map[i] == '>' || map[i] == '^' || map[i] == '<' || map[i] == 'v')
 			player++;
-		else if (map[i] != '\n' && map[i] != 'x' && map[i] != '.')
+		else if (map[i] != '\n' && map[i] != 'x' && map[i] != '.'
+			&& map[i] != '0' && map[i] != 'a')
 			return (1);
 		i++;
 	}

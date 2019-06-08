@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 15:12:58 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 01:11:52 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 17:37:53 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,30 @@ static void	camera_carry_event_2(t_wolf *data, t_vec2d tmp)
 	{
 		if (data->board[(int)(data->camera.position.x - tmp.x
 				* data->camera.move_speed)][(int)data->camera.position.y]
-			!= 'x')
+			!= 'x' && data->board[(int)(data->camera.position.x - tmp.x
+				* data->camera.move_speed)][(int)data->camera.position.y]
+			!= 'a')
 			data->camera.position.x -= tmp.x * data->camera.move_speed;
 		if (data->board[(int)(data->camera.position.x)]
 			[(int)(data->camera.position.y - tmp.y * data->camera.move_speed)]
-			!= 'x')
+			!= 'x' && data->board[(int)(data->camera.position.x)]
+			[(int)(data->camera.position.y - tmp.y * data->camera.move_speed)]
+			!= 'a')
 			data->camera.position.y -= tmp.y * data->camera.move_speed;
 	}
 	if (data->camera.key & CAMERA_LEFT)
 	{
 		if (data->board[(int)(data->camera.position.x + tmp.x
 				* data->camera.move_speed)][(int)data->camera.position.y]
-			!= 'x')
+			!= 'x' && data->board[(int)(data->camera.position.x + tmp.x
+				* data->camera.move_speed)][(int)data->camera.position.y]
+			!= 'a')
 			data->camera.position.x += tmp.x * data->camera.move_speed;
 		if (data->board[(int)(data->camera.position.x)]
 			[(int)(data->camera.position.y + tmp.y * data->camera.move_speed)]
-			!= 'x')
+			!= 'x' && data->board[(int)(data->camera.position.x)]
+			[(int)(data->camera.position.y + tmp.y * data->camera.move_speed)]
+			!= 'a')
 			data->camera.position.y += tmp.y * data->camera.move_speed;
 	}
 }
@@ -45,22 +53,30 @@ void		camera_carry_event(t_wolf *data, t_vec2d tmp)
 	{
 		if (data->board[(int)(data->camera.position.x + data->camera.direction.x
 				* data->camera.move_speed)][(int)data->camera.position.y]
-			!= 'x')
+			!= 'x' && data->board[(int)(data->camera.position.x + data->camera.direction.x
+				* data->camera.move_speed)][(int)data->camera.position.y]
+			!= 'a')
 			data->camera.position.x += tmp.x * data->camera.move_speed;
 		if (data->board[(int)(data->camera.position.x)]
 			[(int)(data->camera.position.y + data->camera.direction.y
-				* data->camera.move_speed)] != 'x')
+				* data->camera.move_speed)] != 'x' && data->board[(int)(data->camera.position.x)]
+			[(int)(data->camera.position.y + data->camera.direction.y
+				* data->camera.move_speed)] != 'a')
 			data->camera.position.y += tmp.y * data->camera.move_speed;
 	}
 	if (data->camera.key & CAMERA_BACK)
 	{
 		if (data->board[(int)(data->camera.position.x - data->camera.direction.x
 				* data->camera.move_speed)][(int)data->camera.position.y]
-			!= 'x')
+			!= 'x' && data->board[(int)(data->camera.position.x - data->camera.direction.x
+				* data->camera.move_speed)][(int)data->camera.position.y]
+			!= 'a')
 			data->camera.position.x -= tmp.x * data->camera.move_speed;
 		if (data->board[(int)(data->camera.position.x)]
 			[(int)(data->camera.position.y - data->camera.direction.y
-				* data->camera.move_speed)] != 'x')
+				* data->camera.move_speed)] != 'x' && data->board[(int)(data->camera.position.x)]
+			[(int)(data->camera.position.y - data->camera.direction.y
+				* data->camera.move_speed)] != 'a')
 			data->camera.position.y -= tmp.y * data->camera.move_speed;
 	}
 	camera_carry_event_2(data, tmp);

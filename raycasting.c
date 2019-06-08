@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 04:45:52 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 12:41:13 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 17:29:23 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ static void	step_loop(t_thread *thread)
 			thread->ray.y_map += thread->ray.step.y;
 			thread->ray.side = 1;
 		}
-		if (thread->data->board[thread->ray.x_map][thread->ray.y_map] == 'x')
+		if (thread->data->board[thread->ray.x_map][thread->ray.y_map] == 'x'
+			|| thread->data->board[thread->ray.x_map][thread->ray.y_map] == 'a')
 			thread->ray.hit = 1;
 	}
 	if (thread->ray.side == 0)
@@ -101,7 +102,8 @@ void		draw_pixel_column(t_thread *thread)
 		ret = i * thread->data->win_width + thread->num;
 		if (i > min && i < max)
 		{
-			if (thread->ray.side == 1 && thread->ray.direction.y < 0)
+			if (thread->data->board[thread->ray.x_map][thread->ray.y_map] == 'a'
+				|| (thread->ray.side == 1 && thread->ray.direction.y < 0))
 				apply_textures(thread, 0, i);
 			else if (thread->ray.side == 1)
 				apply_textures(thread, 1, i);

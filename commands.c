@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 03:49:49 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 01:46:44 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 17:40:33 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	sdl_events_hook(t_wolf *data)
 
 static void	frame_calculator(unsigned int actual, t_wolf *data)
 {
-	static unsigned int	frame = 0;
+	static unsigned int	frame = 60;
 	static unsigned int	time = 0;
 
 	if (actual - time > 1000)
