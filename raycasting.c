@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 04:45:52 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 00:23:21 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 12:41:13 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ void		draw_pixel_column(t_thread *thread)
 		if (i > min && i < max)
 		{
 			if (thread->ray.side == 1 && thread->ray.direction.y < 0)
-				apply_textures(thread, 0, i, max - min);
+				apply_textures(thread, 0, i);
 			else if (thread->ray.side == 1)
-				apply_textures(thread, 1, i, max - min);
+				apply_textures(thread, 1, i);
 			else if (thread->ray.side == 0 && thread->ray.direction.x < 0)
-				apply_textures(thread, 2, i, max - min);
+				apply_textures(thread, 2, i);
 			else
-				apply_textures(thread, 3, i, max - min);
+				apply_textures(thread, 3, i);
 		}
 		else if (i <= min)
 			thread->data->texturetab[ret] = 0X87CEEB;

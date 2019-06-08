@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/07 13:52:45 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 12:40:43 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static int	resize_map(t_wolf *data)
 	data->map = tmp;
 	if (!(data->board = ft_strsplit(data->map, '\n')))
 		return (1);
+	printf("%s\n", data->map);
 	return (0);
 }
 

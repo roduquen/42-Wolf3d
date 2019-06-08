@@ -6,13 +6,14 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 03:49:49 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/07 12:01:05 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 01:46:44 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include <SDL.h>
 #include "libft.h"
+#include <stdio.h>
 
 static void	sdl_events_hook(t_wolf *data)
 {

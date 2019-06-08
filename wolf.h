@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 00:21:38 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 12:41:26 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,6 @@ t_vec2d			vec2d(double x, double y);
 int				raycasting(t_wolf *data);
 void			*calcul_ray_by_thread(void *data);
 void			draw_pixel_column(t_thread *thread);
-void			apply_textures(t_thread *thread, int type, int i, int height);
+void			apply_textures(t_thread *thread, int type, int i);
 
 #endif
