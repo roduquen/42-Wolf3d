@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 12:40:43 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/08 15:03:04 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ static int	translate_map_to_rectangular_map(t_wolf *data)
 		}
 		i++;
 	}
+	if (data->map_width < i - actual)
+		data->map_width = i - actual;
 	data->map_width += 3;
 	data->map_height += 2 + (data->map[i - 1] == '\n' ? 0 : 1);
 	return (resize_map(data));
