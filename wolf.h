@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 12:41:26 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 06:31:07 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@
 # define WIN_HEIGHT	1440
 # define CAMERA_FOV	60
 # define NBR_THREAD	4
-# define BLOCK_SIZE 32
+
+# define TEXTURE_NB	13
+# define SPRITE_NB	2
+
+# define WALLS		"abcdefghijklx"
 
 # define CAMERA_RIGHT (1)
 # define CAMERA_LEFT (1 << 1)
@@ -62,10 +66,9 @@ typedef struct	s_wolf
 	int				map_width;
 	int				map_height;
 	t_camera		camera;
-	double			spacing;
-	SDL_Surface		*surfaces[6];
-	SDL_Texture		*walls[4];
-	unsigned int	*textures[4];
+	SDL_Surface		*surfaces[TEXTURE_NB + SPRITE_NB];
+	char			*texture_path[TEXTURE_NB];
+	char			*sprite_path[SPRITE_NB];
 	char			**board;
 }				t_wolf;
 
@@ -101,6 +104,7 @@ typedef struct	s_thread
 
 int				init_sdl_and_program(t_wolf *data);
 int				leave_sdl_and_program(t_wolf *data, int type);
+void			add_textures_path(t_wolf *data);
 int				load_textures(t_wolf *data);
 int				parsing_maps(t_wolf *data, char *path);
 void			fill_map(t_wolf *data, int size, char *tmp, int i);
@@ -135,5 +139,6 @@ int				raycasting(t_wolf *data);
 void			*calcul_ray_by_thread(void *data);
 void			draw_pixel_column(t_thread *thread);
 void			apply_textures(t_thread *thread, int type, int i);
+void			apply_right_texture(t_thread *thread, int i);
 
 #endif

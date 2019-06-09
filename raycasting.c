@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 04:45:52 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 17:29:23 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 07:24:59 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static void	step_loop(t_thread *thread)
 			thread->ray.y_map += thread->ray.step.y;
 			thread->ray.side = 1;
 		}
-		if (thread->data->board[thread->ray.x_map][thread->ray.y_map] == 'x'
-			|| thread->data->board[thread->ray.x_map][thread->ray.y_map] == 'a')
+		if (ft_strchr(WALLS
+				, thread->data->board[thread->ray.x_map][thread->ray.y_map]))
 			thread->ray.hit = 1;
 	}
 	if (thread->ray.side == 0)
@@ -101,21 +101,11 @@ void		draw_pixel_column(t_thread *thread)
 	{
 		ret = i * thread->data->win_width + thread->num;
 		if (i > min && i < max)
-		{
-			if (thread->data->board[thread->ray.x_map][thread->ray.y_map] == 'a'
-				|| (thread->ray.side == 1 && thread->ray.direction.y < 0))
-				apply_textures(thread, 0, i);
-			else if (thread->ray.side == 1)
-				apply_textures(thread, 1, i);
-			else if (thread->ray.side == 0 && thread->ray.direction.x < 0)
-				apply_textures(thread, 2, i);
-			else
-				apply_textures(thread, 3, i);
-		}
+			apply_right_texture(thread, i);
 		else if (i <= min)
 			thread->data->texturetab[ret] = 0X87CEEB;
 		else
-			thread->data->texturetab[ret] = 0xf0f000;
+			thread->data->texturetab[ret] = 0x828282;
 	}
 }
 

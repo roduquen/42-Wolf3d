@@ -6,11 +6,40 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 14:41:44 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/08 12:45:44 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 07:28:27 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
+
+static int		door_texture(t_thread *thread, int i)
+{
+	if ((thread->ray.side == 0 && thread->ray.direction.x < 0
+			&& thread->ray.x_map + 1 > 0 && thread->data->board
+			[thread->ray.x_map + 1][thread->ray.y_map] == '0')
+		|| (thread->ray.side == 1 && thread->ray.direction.y < 0
+			&& thread->ray.y_map + 1 > 0 && thread->data->board
+			[thread->ray.x_map][thread->ray.y_map + 1] == '0')
+		|| (thread->ray.side == 0 && thread->ray.direction.x >= 0
+			&& thread->ray.x_map - 1 > 0 && thread->data->board
+			[thread->ray.x_map - 1][thread->ray.y_map] == '0')
+		|| (thread->ray.side == 1 && thread->ray.direction.y >= 0
+			&& thread->ray.y_map - 1 > 0 && thread->data->board
+			[thread->ray.x_map][thread->ray.y_map - 1] == '0'))
+	{
+		apply_textures(thread, 12, i);
+		return (0);
+	}
+	return (1);
+}
+
+void			apply_right_texture(t_thread *thread, int i)
+{
+	if (!door_texture(thread, i))
+		return ;
+	apply_textures(thread, thread->data->board[thread->ray.x_map]
+		[thread->ray.y_map] - 'a', i);
+}
 
 void			apply_textures(t_thread *thread, int type, int i)
 {

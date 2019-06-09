@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -O3 -Ofast
+CFLAGS = -Wall -Wextra -Werror -O2 -Ofast
 NAME = wolf3d
 SRCDIR = ./
 INCLDIR = ./includes/
@@ -16,7 +16,8 @@ SRCS = wolf3d.c \
 	   vec2d.c \
 	   texture.c \
 	   utils.c \
-	   apply_textures.c
+	   apply_textures.c \
+	   path_to_textures.c
 OBJ = $(notdir $(SRCS:.c=.o))
 
 all : $(NAME)
@@ -37,6 +38,8 @@ clean :
 	@rm -rf $(OBJ)
 	@echo "\n\033[36mDeletion :\033[0m \033[32mObjects\033[0m\n"
 
+cm : clean all
+
 fclean : clean
 	@rm -rf $(NAME)
 	@make -C libft/ fclean
@@ -44,4 +47,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re cm

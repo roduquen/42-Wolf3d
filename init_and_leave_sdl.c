@@ -6,12 +6,13 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:04 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/07 14:01:59 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 03:04:01 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <SDL.h>
 #include "wolf.h"
+#include <stdio.h>
 
 int			leave_sdl_and_program(t_wolf *data, int type)
 {
