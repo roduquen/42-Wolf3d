@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 01:48:20 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 11:08:05 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 13:57:45 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ static void	add_new_game_menu_path(t_wolf *data)
 	data->menu_path[35] = "./textures/menu/new_game_menu/new_game_page_5.bmp";
 	data->menu_path[36] = "./textures/menu/new_game_menu/new_game_page_6.bmp";
 	data->menu_path[37] = "./textures/menu/new_game_menu/new_game_page_7.bmp";
+	data->menu_path[38] = "./textures/menu/control_menu/control_page_1.bmp";
+	data->menu_path[39] = "./textures/menu/control_menu/control_page_2.bmp";
+	data->menu_path[40] = "./textures/menu/sound_menu/sound_page_1.bmp";
+	data->menu_path[41] = "./textures/menu/sound_menu/sound_page_2.bmp";
 }
 
 static void	add_read_menu_path(t_wolf *data)

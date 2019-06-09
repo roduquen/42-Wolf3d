@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 07:26:06 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 19:50:30 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
-#include <stdio.h>
 
 static int	check_if_well_formated(char *map)
 {
@@ -28,7 +27,7 @@ static int	check_if_well_formated(char *map)
 	{
 		if (ft_strchr("><^v", map[i]))
 			player++;
-		else if (!ft_strchr("\nx.0abcdefghijkl", map[i]))
+		else if (!ft_strchr("\n.0abcdefghijkl", map[i]))
 			return (1);
 		i++;
 	}
@@ -74,14 +73,13 @@ static int	resize_map(t_wolf *data)
 	if (!(tmp = (char*)malloc(sizeof(char) * (size + 1))))
 		return (1);
 	while (i < data->map_width - 1)
-		tmp[i++] = 'x';
+		tmp[i++] = 'a';
 	tmp[i++] = '\n';
 	fill_map(data, size, tmp, i);
 	free(data->map);
 	data->map = tmp;
 	if (!(data->board = ft_strsplit(data->map, '\n')))
 		return (1);
-	printf("%s\n", data->map);
 	return (0);
 }
 
