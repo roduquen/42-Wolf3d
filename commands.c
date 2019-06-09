@@ -6,16 +6,15 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 03:49:49 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 03:02:39 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 11:11:29 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include <SDL.h>
 #include "libft.h"
-#include <stdio.h>
 
-static void	sdl_events_hook(t_wolf *data)
+void		sdl_events_hook(t_wolf *data)
 {
 	if (data->event.type == SDL_QUIT)
 		data->running = SDL_FALSE;
@@ -32,7 +31,7 @@ static void	sdl_events_hook(t_wolf *data)
 		camera_mouse_event(data);
 }
 
-static void	frame_calculator(unsigned int actual, t_wolf *data)
+void		frame_calculator(unsigned int actual, t_wolf *data)
 {
 	static unsigned int	frame = 60;
 	static unsigned int	time = 0;
@@ -50,29 +49,21 @@ static void	frame_calculator(unsigned int actual, t_wolf *data)
 
 int			commands(t_wolf *data)
 {
-	int				test;
-	t_vec2d			tmp;
-
 	while (data->running)
 	{
-		while (SDL_PollEvent(&data->event))
-			sdl_events_hook(data);
-		tmp = data->camera.direction;
-		camera_carry_event(data, tmp);
-		if (SDL_LockTexture(data->texture, NULL, (void**)&data->texturetab
-				, &test))
+		if (data->state == 0)
+			game_start(data);
+		else if (data->state == 1)
+			game_init(data);
+		else if (data->state == 2)
+			game_options_read(data);
+		else if (data->state == 3)
+			game_options_new_game(data);
+		else if (data->state == 4)
 		{
-			SDL_LogError(SDL_LOG_CATEGORY_APPLICATION
-				, "Couldn't lock texture: %s", SDL_GetError());
-			return (1);
+			if (game_running(data))
+				return (1);
 		}
-		ft_memset(data->texturetab, 0, data->win_width * data->win_height);
-		if (raycasting(data))
-			return (1);
-		SDL_UnlockTexture(data->texture);
-		SDL_RenderCopy(data->renderer, data->texture, NULL, NULL);
-		SDL_RenderPresent(data->renderer);
-		frame_calculator(SDL_GetTicks(), data);
 	}
 	return (0);
 }

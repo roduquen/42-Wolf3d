@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 06:31:07 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 11:08:37 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@
 
 # define TEXTURE_NB	13
 # define SPRITE_NB	2
+# define MENU_NB	38
+
+# define MENU_QUIT	8
+# define MENU_READ	6
+# define MENU_NEW	1
 
 # define WALLS		"abcdefghijklx"
 
@@ -67,9 +72,15 @@ typedef struct	s_wolf
 	int				map_height;
 	t_camera		camera;
 	SDL_Surface		*surfaces[TEXTURE_NB + SPRITE_NB];
+	SDL_Texture		*menu[MENU_NB];
 	char			*texture_path[TEXTURE_NB];
 	char			*sprite_path[SPRITE_NB];
+	char			*menu_path[MENU_NB];
 	char			**board;
+	int				state;
+	int				options;
+	int				actual_read;
+	int				actual_new_game;
 }				t_wolf;
 
 typedef struct	s_ray
@@ -118,6 +129,18 @@ void			camera_downkey_event(t_wolf *data);
 void			camera_upkey_event(t_wolf *data);
 void			camera_mouse_event(t_wolf *data);
 void			camera_carry_event(t_wolf *data, t_vec2d tmp);
+void			sdl_events_hook(t_wolf *data);
+void			init_events(t_wolf *data);
+
+/*
+** GAME STATE
+*/
+
+int				game_running(t_wolf *data);
+void			game_options_new_game(t_wolf *data);
+void			game_options_read(t_wolf *data);
+void			game_init(t_wolf *data);
+void			game_start(t_wolf *data);
 
 /*
 ** MATHS
@@ -140,5 +163,11 @@ void			*calcul_ray_by_thread(void *data);
 void			draw_pixel_column(t_thread *thread);
 void			apply_textures(t_thread *thread, int type, int i);
 void			apply_right_texture(t_thread *thread, int i);
+
+/*
+** UTILS
+*/
+
+void			frame_calculator(unsigned int actual, t_wolf *data);
 
 #endif
