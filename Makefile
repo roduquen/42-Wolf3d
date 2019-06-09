@@ -1,3 +1,4 @@
+USER = `whoami`
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -O2 -Ofast
 NAME = wolf3d
@@ -5,7 +6,7 @@ SRCDIR = ./
 INCLDIR = ./includes/
 LIBDIR = ./libft/
 LIB = $(LIBDIR)libft.a
-LIBSDL = -L /Users/roduquen/.brew/lib/ -lSDL2-2.0.0 `sdl2-config --cflags --libs`
+LIBSDL = -L /Users/$(USER)/.brew/lib/ -lSDL2-2.0.0 `sdl2-config --cflags --libs`
 SRCS = wolf3d.c \
 	   init_and_leave_sdl.c \
 	   parser.c \
@@ -29,7 +30,7 @@ $(NAME) : $(OBJ) $(LIB)
 	@echo "\n\033[36mCreation :\033[0m \033[35;4m$(NAME)\033[0m\n"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $^ -I $(INCLDIR) -I /Users/roduquen/.brew/include/SDL2
+	@$(CC) $(CFLAGS) -c $^ -I $(INCLDIR) -I /Users/$(USER)/.brew/include/SDL2
 	@echo "\033[36mCompilation :\033[0m \033[32m$*\033[0m"
 
 $(LIB) :

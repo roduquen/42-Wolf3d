@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wolf.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 11:08:37 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 12:23:21 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define MENU_NEW	1
 
 # define WALLS		"abcdefghijklx"
+# define SPRITES	"A"
 
 # define CAMERA_RIGHT (1)
 # define CAMERA_LEFT (1 << 1)
@@ -90,6 +91,7 @@ typedef struct	s_ray
 	int			x_map;
 	int			y_map;
 	t_vec2d		side_dist;
+	double		x_sprite;
 	double		x_wall;
 	double		x_tex;
 	int			y_tex;
