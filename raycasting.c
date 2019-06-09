@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 04:45:52 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 07:24:59 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 19:13:41 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ static void	step_loop(t_thread *thread)
 			thread->ray.side = 1;
 		}
 		if (ft_strchr(WALLS
+				, thread->data->board[thread->ray.x_map][thread->ray.y_map]))
+			thread->ray.hit = 1;
+		if (ft_strchr(SPRITES
 				, thread->data->board[thread->ray.x_map][thread->ray.y_map]))
 			thread->ray.hit = 1;
 	}

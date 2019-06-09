@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 07:26:06 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 19:08:07 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_if_well_formated(char *map)
 	{
 		if (ft_strchr("><^v", map[i]))
 			player++;
-		else if (!ft_strchr("\nx.0abcdefghijkl", map[i]))
+		else if (!ft_strchr("\nx.0abcdefghijklA", map[i]))
 			return (1);
 		i++;
 	}
@@ -74,7 +74,7 @@ static int	resize_map(t_wolf *data)
 	if (!(tmp = (char*)malloc(sizeof(char) * (size + 1))))
 		return (1);
 	while (i < data->map_width - 1)
-		tmp[i++] = 'x';
+		tmp[i++] = 'a';
 	tmp[i++] = '\n';
 	fill_map(data, size, tmp, i);
 	free(data->map);

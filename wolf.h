@@ -6,7 +6,7 @@
 /*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 12:23:21 by mbenjell         ###   ########.fr       */
+/*   Updated: 2019/06/09 20:00:19 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int				raycasting(t_wolf *data);
 void			*calcul_ray_by_thread(void *data);
 void			draw_pixel_column(t_thread *thread);
 void			apply_textures(t_thread *thread, int type, int i);
+void 			apply_sprites(t_thread *thread, int type, int i);
 void			apply_right_texture(t_thread *thread, int i);
 
 /*

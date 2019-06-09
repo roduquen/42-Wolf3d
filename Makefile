@@ -1,6 +1,6 @@
 USER = `whoami`
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -O2 -Ofast
+CFLAGS = #-Wall -Wextra -Werror -O2 -Ofast
 NAME = wolf3d
 SRCDIR = ./
 INCLDIR = ./includes/
@@ -18,6 +18,7 @@ SRCS = wolf3d.c \
 	   texture.c \
 	   utils.c \
 	   apply_textures.c \
+	   apply_sprites.c \
 	   path_to_textures.c \
 	   game_states.c \
 	   game_init_events.c

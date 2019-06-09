@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   apply_textures.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 14:41:44 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 07:28:27 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 19:28:11 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void			apply_right_texture(t_thread *thread, int i)
 		return ;
 	apply_textures(thread, thread->data->board[thread->ray.x_map]
 		[thread->ray.y_map] - 'a', i);
+	apply_sprites(thread, thread->data->board[thread->ray.x_map]
+		[thread->ray.y_map] - 'A' + TEXTURE_NB, i);
 }
 
 void			apply_textures(t_thread *thread, int type, int i)
