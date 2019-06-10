@@ -6,11 +6,7 @@
 /*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/06/09 19:08:07 by mbenjell         ###   ########.fr       */
-=======
-/*   Updated: 2019/06/09 19:50:30 by roduquen         ###   ########.fr       */
->>>>>>> aba6118a3f0feb948254069095102805f69ec9a5
+/*   Updated: 2019/06/10 16:36:25 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 static int	check_if_well_formated(char *map)
 {
@@ -31,11 +28,7 @@ static int	check_if_well_formated(char *map)
 	{
 		if (ft_strchr("><^v", map[i]))
 			player++;
-<<<<<<< HEAD
 		else if (!ft_strchr("\nx.0abcdefghijklA", map[i]))
-=======
-		else if (!ft_strchr("\n.0abcdefghijkl", map[i]))
->>>>>>> aba6118a3f0feb948254069095102805f69ec9a5
 			return (1);
 		i++;
 	}
@@ -88,6 +81,7 @@ static int	resize_map(t_wolf *data)
 	data->map = tmp;
 	if (!(data->board = ft_strsplit(data->map, '\n')))
 		return (1);
+	printf("%s\n", data->map);
 	return (0);
 }
 

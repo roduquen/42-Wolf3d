@@ -6,7 +6,7 @@
 /*   By: mbenjell <mbenjell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 11:32:32 by mbenjell          #+#    #+#             */
-/*   Updated: 2019/06/09 20:00:26 by mbenjell         ###   ########.fr       */
+/*   Updated: 2019/06/09 20:10:06 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,13 @@ void 				apply_sprites(t_thread *thread, int type, int i)
 
 	data = thread->data;
 	img = data->texturetab;
+
+
+
+
+
+
+
+
+	
 }
