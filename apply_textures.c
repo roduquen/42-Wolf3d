@@ -6,7 +6,7 @@
 /*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 14:41:44 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 19:28:11 by mbenjell         ###   ########.fr       */
+/*   Updated: 2019/06/10 22:10:01 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,14 @@ void			apply_right_texture(t_thread *thread, int i)
 {
 	if (!door_texture(thread, i))
 		return ;
-	apply_textures(thread, thread->data->board[thread->ray.x_map]
-		[thread->ray.y_map] - 'a', i);
+	if (thread->data->board[thread->ray.x_map]
+		[thread->ray.y_map] >= 'a' && thread->data->board[thread->ray.x_map]
+			[thread->ray.y_map] <= 'z')
+			apply_textures(thread, thread->data->board[thread->ray.x_map]
+				[thread->ray.y_map] - 'a', i);
+	if (thread->data->board[thread->ray.x_map]
+			[thread->ray.y_map] >= 'A' && thread->data->board[thread->ray.x_map]
+				[thread->ray.y_map] <= 'Z')
 	apply_sprites(thread, thread->data->board[thread->ray.x_map]
 		[thread->ray.y_map] - 'A' + TEXTURE_NB, i);
 }

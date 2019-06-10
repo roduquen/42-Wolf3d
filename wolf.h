@@ -103,6 +103,7 @@ typedef struct	s_ray
 	int			side;
 	int			hit;
 	int			height;
+	double 		sprite_dist;
 }				t_ray;
 
 typedef struct	s_thread

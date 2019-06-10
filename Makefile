@@ -1,6 +1,6 @@
 USER = `whoami`
-CC = clang
-CFLAGS = #-Wall -Wextra -Werror -O2 -Ofast
+CC = clang #-g3 -fsanitize=address
+CFLAGS = -O2 -Ofast
 NAME = wolf3d
 SRCDIR = ./
 INCLDIR = ./includes/
