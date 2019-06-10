@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 08:01:50 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 13:18:06 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/10 12:41:12 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,29 @@ void	game_options_control(t_wolf *data)
 	if (data->actual_control >= 2)
 		data->actual_control = 0;
 	SDL_RenderCopy(data->renderer, data->menu[data->actual_control + 38], NULL
+		, NULL);
+	SDL_RenderPresent(data->renderer);
+}
+
+void	game_options_sound(t_wolf *data)
+{
+	while (SDL_PollEvent(&data->event))
+	{
+		if (data->event.type == SDL_KEYDOWN && data->event.key.repeat == 0)
+		{
+			if (data->event.key.keysym.sym == SDLK_UP)
+				data->actual_sound--;
+			else if (data->event.key.keysym.sym == SDLK_DOWN)
+				data->actual_sound++;
+			else if (data->event.key.keysym.sym == SDLK_ESCAPE)
+				data->state = 1;
+		}
+	}
+	if (data->actual_sound < 0)
+		data->actual_sound = 1;
+	if (data->actual_sound >= 2)
+		data->actual_sound = 0;
+	SDL_RenderCopy(data->renderer, data->menu[data->actual_sound + 40], NULL
 		, NULL);
 	SDL_RenderPresent(data->renderer);
 }

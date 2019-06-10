@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 03:49:49 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 13:13:34 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/10 16:25:52 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void		sdl_events_hook(t_wolf *data)
 			data->state = 1;
 		else
 			camera_downkey_event(data);
+		if (data->event.key.keysym.sym == SDLK_SPACE)
+			active_commands(data, data->camera.position);
 	}
 	else if (data->event.type == SDL_KEYUP && data->event.key.repeat == 0)
 		camera_upkey_event(data);
@@ -35,6 +37,8 @@ void		frame_calculator(unsigned int actual, t_wolf *data)
 {
 	static unsigned int	frame = 60;
 	static unsigned int	time = 0;
+	int					x;
+	int					y;
 
 	if (actual - time > 1000)
 	{
@@ -45,6 +49,21 @@ void		frame_calculator(unsigned int actual, t_wolf *data)
 		printf("FPS :: %d\n", frame);
 		frame = 0;
 		time = actual;
+	}
+	if (actual % 5000 < 500)
+	{
+		x = 0;
+		while (data->board[x])
+		{
+			y = 0;
+			while (data->board[x][y])
+			{
+				if (data->board[x][y] == '1')
+					data->board[x][y] = '0';
+				y++;
+			}
+			x++;
+		}
 	}
 	frame++;
 }
@@ -64,6 +83,8 @@ int			commands(t_wolf *data)
 		else if (data->state == 4)
 			game_options_control(data);
 		else if (data->state == 5)
+			game_options_sound(data);
+		else if (data->state == 6)
 		{
 			if (game_running(data))
 				return (1);

@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 14:01:35 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/10 16:17:45 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define MENU_READ	6
 # define MENU_QUIT	8
 
-# define WALLS		"abcdefghijklx"
+# define WALLS		"abcdefghijklmx"
 
 # define CAMERA_RIGHT (1)
 # define CAMERA_LEFT (1 << 1)
@@ -84,6 +84,7 @@ typedef struct	s_wolf
 	int				actual_read;
 	int				actual_new_game;
 	int				actual_control;
+	int				actual_sound;
 }				t_wolf;
 
 typedef struct	s_ray
@@ -135,12 +136,14 @@ void			camera_carry_event(t_wolf *data, t_vec2d tmp);
 void			sdl_events_hook(t_wolf *data);
 void			init_events(t_wolf *data);
 void			init_game(t_wolf *data);
+void			active_commands(t_wolf *data, t_vec2d pos);
 
 /*
 ** GAME STATE
 */
 
 int				game_running(t_wolf *data);
+void			game_options_sound(t_wolf *data);
 void			game_options_control(t_wolf *data);
 void			game_options_new_game(t_wolf *data);
 void			game_options_read(t_wolf *data);
