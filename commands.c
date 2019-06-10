@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 03:49:49 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 11:11:29 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 13:13:34 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		sdl_events_hook(t_wolf *data)
 	else if (data->event.type == SDL_KEYDOWN && data->event.key.repeat == 0)
 	{
 		if (data->event.key.keysym.sym == SDLK_ESCAPE)
-			data->running = SDL_FALSE;
+			data->state = 1;
 		else
 			camera_downkey_event(data);
 	}
@@ -38,6 +38,8 @@ void		frame_calculator(unsigned int actual, t_wolf *data)
 
 	if (actual - time > 1000)
 	{
+		if (frame < 20)
+			frame = 50;
 		data->camera.move_speed = 5.0 / frame;
 		data->camera.angle_speed = 3.0 / frame;
 		printf("FPS :: %d\n", frame);
@@ -60,6 +62,8 @@ int			commands(t_wolf *data)
 		else if (data->state == 3)
 			game_options_new_game(data);
 		else if (data->state == 4)
+			game_options_control(data);
+		else if (data->state == 5)
 		{
 			if (game_running(data))
 				return (1);

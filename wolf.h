@@ -6,7 +6,6 @@
 /*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 20:00:19 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +22,13 @@
 
 # define TEXTURE_NB	13
 # define SPRITE_NB	2
-# define MENU_NB	38
+# define MENU_NB	42
 
-# define MENU_QUIT	8
-# define MENU_READ	6
 # define MENU_NEW	1
+# define MENU_SOUND	2
+# define MENU_CONT	3
+# define MENU_READ	6
+# define MENU_QUIT	8
 
 # define WALLS		"abcdefghijklx"
 # define SPRITES	"A"
@@ -82,6 +83,7 @@ typedef struct	s_wolf
 	int				options;
 	int				actual_read;
 	int				actual_new_game;
+	int				actual_control;
 }				t_wolf;
 
 typedef struct	s_ray
@@ -133,12 +135,14 @@ void			camera_mouse_event(t_wolf *data);
 void			camera_carry_event(t_wolf *data, t_vec2d tmp);
 void			sdl_events_hook(t_wolf *data);
 void			init_events(t_wolf *data);
+void			init_game(t_wolf *data);
 
 /*
 ** GAME STATE
 */
 
 int				game_running(t_wolf *data);
+void			game_options_control(t_wolf *data);
 void			game_options_new_game(t_wolf *data);
 void			game_options_read(t_wolf *data);
 void			game_init(t_wolf *data);

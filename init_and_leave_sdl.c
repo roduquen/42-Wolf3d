@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:04 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 03:04:01 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/09 12:12:08 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,16 @@ int			leave_sdl_and_program(t_wolf *data, int type)
 		free(data->board);
 	}
 	i = -1;
-	while (++i < 6)
+	while (++i < TEXTURE_NB + SPRITE_NB)
 	{
 		if (data->surfaces[i])
 			SDL_FreeSurface(data->surfaces[i]);
+	}
+	i = -1;
+	while (++i < MENU_NB)
+	{
+		if (data->menu[i])
+			SDL_DestroyTexture(data->menu[i]);
 	}
 	return (type);
 }
