@@ -6,7 +6,7 @@
 /*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/10 16:36:25 by mbenjell         ###   ########.fr       */
+/*   Updated: 2019/06/11 16:39:01 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_if_well_formated(char *map)
 	{
 		if (ft_strchr("><^v", map[i]))
 			player++;
-		else if (!ft_strchr("\nx.0abcdefghijklA", map[i]))
+		else if (!ft_strchr("\n.0123456789abcdefghijklA", map[i]))
 			return (1);
 		i++;
 	}
@@ -135,5 +135,6 @@ int			parsing_maps(t_wolf *data, char *path)
 		write(2, "File is not correctly formated\n", 32);
 		return (leave_sdl_and_program(data, 1));
 	}
+	init_data_and_camera(data);
 	return (0);
 }

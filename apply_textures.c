@@ -6,11 +6,12 @@
 /*   By: roduquen <roduquen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 14:41:44 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/10 22:10:01 by mbenjell         ###   ########.fr       */
+/*   Updated: 2019/06/11 16:36:03 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
+#include "libft.h"
 
 static int		door_texture(t_thread *thread, int i)
 {

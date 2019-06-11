@@ -1,28 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wolf3d.c                                           :+:      :+:    :+:   */
+/*   map_editor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/28 00:33:40 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/11 01:14:33 by roduquen         ###   ########.fr       */
+/*   Created: 2019/06/10 15:33:04 by roduquen          #+#    #+#             */
+/*   Updated: 2019/06/10 16:04:33 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
-#include "libft.h"
-#include <unistd.h>
 
-int		main(void)
+int			editor_state(t_wolf *data)
 {
-	t_wolf		data;
-
-	ft_memset(&data, 0, sizeof(t_wolf));
-	if (init_sdl_and_program(&data))
-		return (1);
-	if (commands(&data))
-		return (1);
-	leave_sdl_and_program(&data, 0);
-	return (0);
-}
+	

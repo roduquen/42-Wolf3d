@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:04 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 12:12:08 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/11 01:11:55 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	init_texture(t_wolf *data)
 {
 	if (!(data->texture = SDL_CreateTexture(data->renderer
 					, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING
-					, data->win_width, data->win_height)))
+					, WIN_WIDTH, WIN_HEIGHT)))
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture: %s"
 				, SDL_GetError());
@@ -85,7 +85,6 @@ static void	init_camera_pos_and_direction(t_wolf *data, int line, int column)
 			, to_radian(data->camera.angle));
 	data->camera.plane = vec2d_rotate(vec2d(0, 0.66)
 			, to_radian(data->camera.angle));
-	data->running = SDL_TRUE;
 	data->win_height = WIN_HEIGHT;
 	data->win_width = WIN_WIDTH;
 	data->camera.fov = (double)CAMERA_FOV;
@@ -93,7 +92,7 @@ static void	init_camera_pos_and_direction(t_wolf *data, int line, int column)
 	data->camera.ray_length = 10.0;
 }
 
-static void	init_data_and_camera(t_wolf *data)
+void		init_data_and_camera(t_wolf *data)
 {
 	int			i;
 	int			line;
@@ -124,7 +123,7 @@ static void	init_data_and_camera(t_wolf *data)
 
 int			init_sdl_and_program(t_wolf *data)
 {
-	init_data_and_camera(data);
+	data->running = SDL_TRUE;
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't initialize SDL: %s"

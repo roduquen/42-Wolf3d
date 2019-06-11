@@ -21,7 +21,8 @@ SRCS = wolf3d.c \
 	   apply_sprites.c \
 	   path_to_textures.c \
 	   game_states.c \
-	   game_init_events.c
+	   game_init_events.c \
+	   in_game_commands.c
 OBJ = $(notdir $(SRCS:.c=.o))
 
 all : $(NAME)

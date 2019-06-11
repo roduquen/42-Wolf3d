@@ -6,7 +6,7 @@
 /*   By: mbenjell <mbenjell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 11:32:32 by mbenjell          #+#    #+#             */
-/*   Updated: 2019/06/10 22:23:22 by mbenjell         ###   ########.fr       */
+/*   Updated: 2019/06/11 16:29:14 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static int 			calcul_index(t_thread *thread, int line)
 	start = (WIN_HEIGHT - (WIN_HEIGHT / dist)) / 2;
 	end = (WIN_HEIGHT + (WIN_HEIGHT / dist)) / 2;
 	// Condition sprite
-		index =	abs(rand() % 400);
+	if (line > start && line < end)
+		index =	abs(rand() % 100);
 	thread->ray.sprite_dist = dist;
 	return (index);
 }

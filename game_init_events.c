@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 09:33:13 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 14:01:24 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/10 23:56:29 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,52 @@ void		init_events(t_wolf *data)
 		data->state = 3;
 	else if (data->options == MENU_CONT)
 		data->state = 4;
+	else if (data->options == MENU_SOUND)
+		data->state = 5;
 }
+
+void		create_string_map(char *str, char number[], int nb)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] != '1')
+	{
+		number[i] = str[i];
+		i++;
+	}
+	number[i++] = nb;
+	while (str[i])
+	{
+		number[i] = str[i];
+		i++;
+	}
+	number[i] = 0;
+}
+
 
 void		init_game(t_wolf *data)
 {
 	int			i;
 	int			j;
+	char		number[100];
 
-	if (data->actual_new_game == 0)
+	number[0] = data->actual_new_game + '1';
+	data->actual_floor = 0;
+	create_string_map("./maps/wolfenstein/episode1/floor1", number, number[0]);
+	i = 0;
+	if (data->board)
 	{
+		while (data->board[i])
+			free(data->board[i++]);
 		free(data->board);
-		free(data->map);
-		parsing_maps(data, "./maps/wolfenstein/episode1/floor1");
-		data->state = 5;
 	}
+	free(data->map);
+	data->map = NULL;
+	data->board = NULL;
+	if (parsing_maps(data, number))
+		exit(1);
+	data->state = 6;
 	i = 0;
 	while (data->board[i])
 	{
@@ -46,8 +78,45 @@ void		init_game(t_wolf *data)
 		{
 			if (ft_strchr("^><v", data->board[i][j]))
 			{
-				data->camera.position.x = i;
-				data->camera.position.y = j;
+				data->camera.position.x = i + 0.5;
+				data->camera.position.y = j + 0.5;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void			init_floor_change(t_wolf *data)
+{
+	int			i;
+	int			j;
+	char		number[100];
+
+	data->actual_floor++;
+	ft_strcpy(number, "./maps/wolfenstein/episode1/floor1");
+	number[ft_strlen(number) - 1] = data->actual_floor + 47;
+	i = 0;
+	while (data->board[i])
+		free(data->board[i++]);
+	free(data->board);
+	free(data->map);
+	data->board = NULL;
+	data->map = NULL;
+	if (parsing_maps(data, number))
+		exit(1);
+	data->state = 6;
+	i = 0;
+	while (data->board[i])
+	{
+		j = 0;
+		while (data->board[i][j])
+		{
+			if (ft_strchr("^><v", data->board[i][j]))
+			{
+				data->camera.position.x = i + 0.5;
+				data->camera.position.y = j + 0.5;
 				return ;
 			}
 			j++;
