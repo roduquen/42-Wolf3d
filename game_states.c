@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 08:01:50 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/10 12:41:12 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/11 01:32:00 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,12 @@ void	game_options_sound(t_wolf *data)
 void	game_start(t_wolf *data)
 {
 	while (SDL_PollEvent(&data->event))
+	{
 		if (data->event.type == SDL_KEYDOWN)
 			data->state = 1;
+		if (data->event.key.keysym.sym == SDLK_ESCAPE && data->event.key.repeat == 0)
+			data->running = SDL_FALSE;
+	}
 	SDL_RenderCopy(data->renderer, data->menu[0], NULL, NULL);
 	SDL_RenderPresent(data->renderer);
 }
@@ -81,8 +85,8 @@ void	game_init(t_wolf *data)
 				data->options--;
 			else if (data->event.key.keysym.sym == SDLK_DOWN)
 				data->options++;
-			else if (data->event.key.keysym.sym == SDLK_ESCAPE)
-				data->running = 0;
+			else if (data->event.key.keysym.sym == SDLK_ESCAPE && data->board)
+				data->state = 6;
 			else if (data->event.key.keysym.sym == SDLK_RETURN)
 				init_events(data);
 		}

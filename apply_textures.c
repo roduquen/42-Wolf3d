@@ -6,11 +6,12 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 14:41:44 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 07:28:27 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/11 01:39:06 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
+#include "libft.h"
 
 static int		door_texture(t_thread *thread, int i)
 {
@@ -37,8 +38,11 @@ void			apply_right_texture(t_thread *thread, int i)
 {
 	if (!door_texture(thread, i))
 		return ;
-	apply_textures(thread, thread->data->board[thread->ray.x_map]
-		[thread->ray.y_map] - 'a', i);
+	if (ft_strchr("123456789", thread->data->board[thread->ray.x_map][thread->ray.y_map]))
+		apply_textures(thread, 11, i);
+	else if (ft_strchr(WALLS, thread->data->board[thread->ray.x_map][thread->ray.y_map]))
+		apply_textures(thread, thread->data->board[thread->ray.x_map]
+			[thread->ray.y_map] - 'a', i);
 }
 
 void			apply_textures(t_thread *thread, int type, int i)

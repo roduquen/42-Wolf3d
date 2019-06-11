@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/10 16:17:45 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/11 01:10:25 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct	s_wolf
 	int				actual_new_game;
 	int				actual_control;
 	int				actual_sound;
+	int				actual_floor;
 }				t_wolf;
 
 typedef struct	s_ray
@@ -118,6 +119,7 @@ typedef struct	s_thread
 */
 
 int				init_sdl_and_program(t_wolf *data);
+void			init_data_and_camera(t_wolf *data);
 int				leave_sdl_and_program(t_wolf *data, int type);
 void			add_textures_path(t_wolf *data);
 int				load_textures(t_wolf *data);
@@ -137,6 +139,7 @@ void			sdl_events_hook(t_wolf *data);
 void			init_events(t_wolf *data);
 void			init_game(t_wolf *data);
 void			active_commands(t_wolf *data, t_vec2d pos);
+void			init_floor_change(t_wolf *data);
 
 /*
 ** GAME STATE

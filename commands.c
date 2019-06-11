@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 03:49:49 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/10 16:25:52 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/11 01:55:55 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,6 @@ void		frame_calculator(unsigned int actual, t_wolf *data)
 		printf("FPS :: %d\n", frame);
 		frame = 0;
 		time = actual;
-	}
-	if (actual % 5000 < 500)
-	{
-		x = 0;
-		while (data->board[x])
-		{
-			y = 0;
-			while (data->board[x][y])
-			{
-				if (data->board[x][y] == '1')
-					data->board[x][y] = '0';
-				y++;
-			}
-			x++;
-		}
 	}
 	frame++;
 }
