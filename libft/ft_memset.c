@@ -26,42 +26,30 @@ static int	do_long_work(unsigned long mlong, size_t *len, unsigned long *slong)
 {
 	int			i;
 	int			wait;
-	int			tmp;
 
 	i = 0;
 	wait = (*len - *len % 8);
 	*len -= wait;
-	tmp = wait;
 	wait /= 8;
 	while (i < wait)
 		slong[i++] = mlong;
-	return (tmp);
+	return (wait);
 }
 
-static int	do_int_work(unsigned int mint, size_t *len, unsigned int *sint
-	, int actual)
+static int	do_int_work(unsigned int mint, size_t *len, unsigned int *sint)
 {
-	int			i;
-	int			wait;
-	int			tmp;
-
-	i = 0;
-	wait = (*len - *len % 4);
-	*len -= wait;
-	tmp = wait;
-	wait /= 4;
-	while (i < wait)
-		sint[actual + i++] = mint;
-	return (tmp + actual);
+	*sint = mint;
+	*len -= 4;
+	return (4);
 }
 
-static void	do_char_work(char c, size_t len, unsigned char *str, int actual)
+static void	do_char_work(char c, size_t len, unsigned char *str)
 {
 	size_t		i;
 
 	i = 0;
 	while (i < len)
-		str[actual + i++] = c;
+		str[i++] = c;
 }
 
 void		*ft_memset(void *b, int c, size_t len)
@@ -80,23 +68,13 @@ void		*ft_memset(void *b, int c, size_t len)
 	set_magicint_and_long(&magicint, &magiclong, c);
 	if (len >= 8)
 		magiclong = do_long_work(magiclong, &len, setlong);
+	else
+		magiclong = 0;
 	if (len >= 4)
-		magicint = do_int_work(magicint, &len, setint, magiclong * 2);
+		magicint = do_int_work(magicint, &len, setint + (magiclong * 2));
+	else
+		magicint = 0;
 	if (len)
-		do_char_work(c, len, setchar, magicint * 4);
+		do_char_work(c, len, setchar + (magiclong * 8 + magicint));
 	return (b);
-}
-
-#include <stdlib.h>
-
-int		main()
-{
-	char *str;
-
-	str = malloc(10000);
-	ft_memset(str, 48, 12);
-	str[12] = 0;
-	printf("%s", str);
-	free(str);
-	return (0);
 }
