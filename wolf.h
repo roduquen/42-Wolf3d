@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/11 01:10:25 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:28:49 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,23 @@
 # define MENU_READ	6
 # define MENU_QUIT	8
 
-# define WALLS		"abcdefghijklmx"
+# define WALLS		"123456789abcdefghijklmx"
 
 # define CAMERA_RIGHT (1)
 # define CAMERA_LEFT (1 << 1)
 # define CAMERA_FRONT (1 << 2)
 # define CAMERA_BACK (1 << 3)
 
-typedef struct	s_vec2d
+
+typedef struct	s_wolf		t_wolf;
+
+typedef struct				s_vec2d
 {
 	double		x;
 	double		y;
-}				t_vec2d;
+}							t_vec2d;
 
-typedef struct	s_camera
+typedef struct				s_camera
 {
 	t_vec2d			position;
 	t_vec2d			direction;
@@ -53,13 +56,36 @@ typedef struct	s_camera
 	double			angle;
 	double			angle_speed;
 	double			move_speed;
-	double			ray_length;
-	double			fov;
-	double			alpha;
 	unsigned int	key;
-}				t_camera;
+}							t_camera;
 
-typedef struct	s_wolf
+typedef struct				s_ray
+{
+	t_vec2d		direction;
+	double		camx;
+	int			x_map;
+	int			y_map;
+	t_vec2d		side_dist;
+	double		x_wall;
+	int			x_tex;
+	int			y_tex;
+	double		orto;
+	t_vec2d		delta;
+	t_vec2d		step;
+	int			side;
+	int			hit;
+	int			height;
+}							t_ray;
+
+typedef struct				s_thread
+{
+	t_wolf		*data;
+	int			num;
+	t_ray		ray;
+	pthread_t	thread;
+}							t_thread;
+
+struct						s_wolf
 {
 	SDL_Texture		*texture;
 	SDL_Window		*window;
@@ -86,99 +112,74 @@ typedef struct	s_wolf
 	int				actual_control;
 	int				actual_sound;
 	int				actual_floor;
-}				t_wolf;
-
-typedef struct	s_ray
-{
-	t_vec2d		direction;
-	double		camx;
-	int			x_map;
-	int			y_map;
-	t_vec2d		side_dist;
-	double		x_wall;
-	double		x_tex;
-	int			y_tex;
-	double		orto;
-	t_vec2d		delta;
-	t_vec2d		step;
-	int			side;
-	int			hit;
-	int			height;
-}				t_ray;
-
-typedef struct	s_thread
-{
-	t_wolf		*data;
-	int			num;
-	t_ray		ray;
-	pthread_t	thread;
-}				t_thread;
+	t_thread		thread[NBR_THREAD];
+};
 
 /*
 ** INITIALISATION && LEAVE
 */
 
-int				init_sdl_and_program(t_wolf *data);
-void			init_data_and_camera(t_wolf *data);
-int				leave_sdl_and_program(t_wolf *data, int type);
-void			add_textures_path(t_wolf *data);
-int				load_textures(t_wolf *data);
-int				parsing_maps(t_wolf *data, char *path);
-void			fill_map(t_wolf *data, int size, char *tmp, int i);
+int							init_sdl_and_program(t_wolf *data);
+void						init_data_and_camera(t_wolf *data);
+int							leave_sdl_and_program(t_wolf *data, int type);
+void						add_textures_path(t_wolf *data);
+int							load_textures(t_wolf *data);
+int							parsing_maps(t_wolf *data, char *path);
+void						fill_map(t_wolf *data, int size, char *tmp, int i);
 
 /*
 ** COMMANDS
 */
 
-int				commands(t_wolf *data);
-void			camera_downkey_event(t_wolf *data);
-void			camera_upkey_event(t_wolf *data);
-void			camera_mouse_event(t_wolf *data);
-void			camera_carry_event(t_wolf *data, t_vec2d tmp);
-void			sdl_events_hook(t_wolf *data);
-void			init_events(t_wolf *data);
-void			init_game(t_wolf *data);
-void			active_commands(t_wolf *data, t_vec2d pos);
-void			init_floor_change(t_wolf *data);
+int							commands(t_wolf *data);
+void						camera_downkey_event(t_wolf *data);
+void						camera_upkey_event(t_wolf *data);
+void						camera_mouse_event(t_wolf *data);
+void						camera_carry_event(t_wolf *data, t_vec2d tmp);
+void						sdl_events_hook(t_wolf *data);
+void						init_events(t_wolf *data);
+void						init_game(t_wolf *data);
+void						active_commands(t_wolf *data, t_vec2d pos);
+void						init_floor_change(t_wolf *data);
 
 /*
 ** GAME STATE
 */
 
-int				game_running(t_wolf *data);
-void			game_options_sound(t_wolf *data);
-void			game_options_control(t_wolf *data);
-void			game_options_new_game(t_wolf *data);
-void			game_options_read(t_wolf *data);
-void			game_init(t_wolf *data);
-void			game_start(t_wolf *data);
+int							game_running(t_wolf *data);
+void						game_options_sound(t_wolf *data);
+void						game_options_control(t_wolf *data);
+void						game_options_new_game(t_wolf *data);
+void						game_options_read(t_wolf *data);
+void						game_init(t_wolf *data);
+void						game_start(t_wolf *data);
 
 /*
 ** MATHS
 */
 
-double			to_radian(double degrees);
-t_vec2d			vec2d_sub(t_vec2d a, t_vec2d b);
-t_vec2d			vec2d_scalar(t_vec2d a, double scalar);
-t_vec2d			vec2d_add(t_vec2d a, t_vec2d b);
-t_vec2d			vec2d_unit(t_vec2d a);
-t_vec2d			vec2d_rotate(t_vec2d a, double angle);
-t_vec2d			vec2d(double x, double y);
+double						to_radian(double degrees);
+t_vec2d						vec2d_sub(t_vec2d a, t_vec2d b);
+t_vec2d						vec2d_scalar(t_vec2d a, double scalar);
+t_vec2d						vec2d_add(t_vec2d a, t_vec2d b);
+t_vec2d						vec2d_unit(t_vec2d a);
+t_vec2d						vec2d_rotate(t_vec2d a, double angle);
+t_vec2d						vec2d(double x, double y);
 
 /*
 ** RAYCASTING
 */
 
-int				raycasting(t_wolf *data);
-void			*calcul_ray_by_thread(void *data);
-void			draw_pixel_column(t_thread *thread);
-void			apply_textures(t_thread *thread, int type, int i);
-void			apply_right_texture(t_thread *thread, int i);
+int							raycasting(t_wolf *data);
+void						*calcul_ray_by_thread(void *data);
+void						draw_pixel_column(t_thread *thread);
+void						apply_textures(t_thread *thread, int type, int i);
+void						apply_right_texture(t_thread *thread, int i);
 
 /*
 ** UTILS
 */
 
-void			frame_calculator(unsigned int actual, t_wolf *data);
+void						frame_calculator(unsigned int actual);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 14:41:44 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/11 01:39:06 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/14 04:51:38 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,15 @@ void			apply_right_texture(t_thread *thread, int i)
 		return ;
 	if (ft_strchr("123456789", thread->data->board[thread->ray.x_map][thread->ray.y_map]))
 		apply_textures(thread, 11, i);
-	else if (ft_strchr(WALLS, thread->data->board[thread->ray.x_map][thread->ray.y_map]))
+	else if (thread->data->board[thread->ray.x_map][thread->ray.y_map] != '.')
 		apply_textures(thread, thread->data->board[thread->ray.x_map]
 			[thread->ray.y_map] - 'a', i);
 }
 
 void			apply_textures(t_thread *thread, int type, int i)
 {
-	double			tmp;
-	double			test;
+	int				tmp;
+	int				test;
 
 	test = (thread->ray.height + thread->data->win_height
 			- (thread->data->win_height - thread->ray.height)) / 2;
@@ -60,13 +60,12 @@ void			apply_textures(t_thread *thread, int type, int i)
 			* thread->ray.direction.x;
 	thread->ray.x_wall -= (int)thread->ray.x_wall;
 	thread->ray.x_tex = (int)(thread->ray.x_wall * 64.0);
-	if (thread->ray.side == 0 && thread->ray.direction.x > 0)
-		thread->ray.x_tex = 64 - 1 - thread->ray.x_tex;
-	else if (thread->ray.side == 1 && thread->ray.direction.y < 0)
-		thread->ray.x_tex = 64 - 1 - thread->ray.x_tex;
-	tmp = i - WIN_HEIGHT / 2 + test / 2;
-	thread->ray.y_tex = tmp * 64 / test;
-	thread->data->texturetab[i * thread->data->win_width
+	if ((thread->ray.side == 0 && thread->ray.direction.x > 0)
+		|| (thread->ray.side == 1 && thread->ray.direction.y < 0))
+		thread->ray.x_tex = 63 - thread->ray.x_tex;
+	tmp = i * 64 - WIN_HEIGHT * 32 + test * 32;
+	thread->ray.y_tex = tmp / test;
+	thread->data->texturetab[i * WIN_WIDTH
 		+ thread->num] = ((unsigned int*)thread->data->surfaces[type]->pixels)
 		[(int)(64 * thread->ray.y_tex + thread->ray.x_tex)];
 }

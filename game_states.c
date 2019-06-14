@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 08:01:50 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/11 01:32:00 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:27:58 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,12 +163,12 @@ int		game_running(t_wolf *data)
 			, "Couldn't lock texture: %s", SDL_GetError());
 		return (1);
 	}
-	ft_memset(data->texturetab, 0, data->win_width * data->win_height);
+//	ft_memset(data->texturetab, 0, data->win_width * data->win_height);
 	if (raycasting(data))
 		return (1);
 	SDL_UnlockTexture(data->texture);
 	SDL_RenderCopy(data->renderer, data->texture, NULL, NULL);
 	SDL_RenderPresent(data->renderer);
-	frame_calculator(SDL_GetTicks(), data);
+	frame_calculator(SDL_GetTicks());
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 03:49:49 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/11 01:55:55 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/13 19:27:27 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,13 @@ void		sdl_events_hook(t_wolf *data)
 		camera_mouse_event(data);
 }
 
-void		frame_calculator(unsigned int actual, t_wolf *data)
+void		frame_calculator(unsigned int actual)
 {
 	static unsigned int	frame = 60;
 	static unsigned int	time = 0;
-	int					x;
-	int					y;
 
 	if (actual - time > 1000)
 	{
-		if (frame < 20)
-			frame = 50;
-		data->camera.move_speed = 5.0 / frame;
-		data->camera.angle_speed = 3.0 / frame;
 		printf("FPS :: %d\n", frame);
 		frame = 0;
 		time = actual;

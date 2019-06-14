@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:47:47 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/10 23:29:36 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/11 13:29:20 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ static void	door_opening_system(t_wolf *data, t_vec2d pos)
 {
 	if (pos.x - 1 > 0 && data->board[(int)pos.x - 1][(int)pos.y] == '0')
 	{
-		data->board[(int)pos.x - 1][(int)pos.y] = '1';
+		data->board[(int)pos.x - 1][(int)pos.y] = 'l';
 	}
 	if (pos.x + 1 < data->map_width && data->board[(int)pos.x + 1][(int)pos.y] == '0')
 	{
-		data->board[(int)pos.x + 1][(int)pos.y] = '1';
+		data->board[(int)pos.x + 1][(int)pos.y] = 'l';
 	}
 	if (pos.y - 1 > 0 && data->board[(int)pos.x][(int)pos.y - 1] == '0')
 	{
-		data->board[(int)pos.x][(int)pos.y - 1] = '1';
+		data->board[(int)pos.x][(int)pos.y - 1] = 'l';
 	}
 	if (pos.y + 1 < data->map_height && data->board[(int)pos.x][(int)pos.y + 1] == '0')
 	{
-		data->board[(int)pos.x][(int)pos.y + 1] = '1';
+		data->board[(int)pos.x][(int)pos.y + 1] = 'l';
 	}
 }
 

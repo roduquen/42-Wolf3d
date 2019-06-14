@@ -6,13 +6,14 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 04:45:52 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 07:24:59 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/14 03:25:48 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "libft.h"
 #include "wolf.h"
+#include "string.h"
 
 static void	init_and_compute_steps(t_thread *thread)
 {
@@ -58,7 +59,7 @@ static void	step_loop(t_thread *thread)
 			thread->ray.y_map += thread->ray.step.y;
 			thread->ray.side = 1;
 		}
-		if (ft_strchr(WALLS
+		if (!ft_strchr(".0"
 				, thread->data->board[thread->ray.x_map][thread->ray.y_map]))
 			thread->ray.hit = 1;
 	}
@@ -100,7 +101,7 @@ void		draw_pixel_column(t_thread *thread)
 	while (++i < thread->data->win_height)
 	{
 		ret = i * thread->data->win_width + thread->num;
-		if (i > min && i < max)
+		if (i >= min && i < max)
 			apply_right_texture(thread, i);
 		else if (i <= min)
 			thread->data->texturetab[ret] = 0X87CEEB;
@@ -115,10 +116,9 @@ int			raycasting(t_wolf *data)
 	t_thread	thread[NBR_THREAD];
 
 	i = 0;
-	ft_memset(data->texturetab, 0, data->win_width * data->win_height);
+	ft_memset(data->texturetab, 0, 3686400);
 	while (i < NBR_THREAD)
 	{
-		ft_memset(&(thread[i]), 0, sizeof(t_thread));
 		(thread[i]).data = data;
 		(thread[i]).num = i;
 		if (pthread_create(&(thread[i]).thread, NULL, (*calcul_ray_by_thread)

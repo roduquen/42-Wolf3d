@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:04 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/11 01:11:55 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/14 03:43:01 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ static int	init_texture(t_wolf *data)
 				, SDL_GetError());
 		return (leave_sdl_and_program(data, 1));
 	}
-	if (SDL_ShowCursor(SDL_DISABLE) < 0)
-	{
-		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't hide cursor: %s"
-				, SDL_GetError());
-		return (leave_sdl_and_program(data, 1));
-	}
+//	if (SDL_ShowCursor(SDL_DISABLE) < 0)
+//	{
+//		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't hide cursor: %s"
+//				, SDL_GetError());
+//		return (leave_sdl_and_program(data, 1));
+//	}
 	if (load_textures(data))
 		return (1);
 	return (0);
@@ -87,9 +87,8 @@ static void	init_camera_pos_and_direction(t_wolf *data, int line, int column)
 			, to_radian(data->camera.angle));
 	data->win_height = WIN_HEIGHT;
 	data->win_width = WIN_WIDTH;
-	data->camera.fov = (double)CAMERA_FOV;
-	data->camera.alpha = (double)CAMERA_FOV / (double)WIN_WIDTH;
-	data->camera.ray_length = 10.0;
+	data->camera.move_speed = 0.1;
+	data->camera.angle_speed = 0.05;
 }
 
 void		init_data_and_camera(t_wolf *data)
@@ -132,7 +131,7 @@ int			init_sdl_and_program(t_wolf *data)
 	}
 	if (!(data->window = SDL_CreateWindow("Wolfenstein", SDL_WINDOWPOS_CENTERED
 					, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT
-					, SDL_WINDOW_FULLSCREEN)))
+					, SDL_WINDOW_SHOWN)))
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window: %s"
 				, SDL_GetError());
@@ -145,6 +144,6 @@ int			init_sdl_and_program(t_wolf *data)
 				, "Couldn't create renderer: %s", SDL_GetError());
 		return (leave_sdl_and_program(data, 1));
 	}
-	SDL_SetRelativeMouseMode(SDL_TRUE);
+//	SDL_SetRelativeMouseMode(SDL_TRUE);
 	return (init_texture(data));
 }

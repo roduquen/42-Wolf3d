@@ -1,6 +1,6 @@
 CC = clang
 LOGIN = `whoami`
-CFLAGS = -Wall -Wextra -Werror -O2 -Ofast
+CFLAGS = -Wall -Wextra -Werror -O2 -Ofast -g3
 NAME = wolf3d
 SRCDIR = ./
 INCLDIR = ./includes/
