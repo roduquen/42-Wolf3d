@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:04 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/14 03:43:01 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/14 11:42:11 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static void	init_camera_pos_and_direction(t_wolf *data, int line, int column)
 			, to_radian(data->camera.angle));
 	data->camera.plane = vec2d_rotate(vec2d(0, 0.66)
 			, to_radian(data->camera.angle));
+	data->board[line][column] = '.';
 	data->win_height = WIN_HEIGHT;
 	data->win_width = WIN_WIDTH;
 	data->camera.move_speed = 0.1;

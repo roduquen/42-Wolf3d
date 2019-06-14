@@ -6,20 +6,20 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 22:03:00 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/14 04:05:12 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/14 11:57:44 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 
 static void	set_magicint_and_long(unsigned int *mint, unsigned long *mlong
-	, char c)
+	, unsigned char c)
 {
 	*mint = c;
-	*mint += c << 8;
-	*mint += *mint << 16;
-	*mlong = *mint << 16;
-	*mlong += *mint;
+	*mint |= c << 8;
+	*mint |= *mint << 16;
+	*mlong = *mint;
+	*mlong |= *mlong << 32;
 }
 
 static int	do_long_work(unsigned long mlong, size_t *len, unsigned long *slong)
@@ -85,4 +85,18 @@ void		*ft_memset(void *b, int c, size_t len)
 	if (len)
 		do_char_work(c, len, setchar, magicint * 4);
 	return (b);
+}
+
+#include <stdlib.h>
+
+int		main()
+{
+	char *str;
+
+	str = malloc(10000);
+	ft_memset(str, 48, 12);
+	str[12] = 0;
+	printf("%s", str);
+	free(str);
+	return (0);
 }

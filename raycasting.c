@@ -6,14 +6,13 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 04:45:52 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/14 03:25:48 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/14 11:19:16 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "libft.h"
 #include "wolf.h"
-#include "string.h"
 
 static void	init_and_compute_steps(t_thread *thread)
 {
@@ -101,7 +100,7 @@ void		draw_pixel_column(t_thread *thread)
 	while (++i < thread->data->win_height)
 	{
 		ret = i * thread->data->win_width + thread->num;
-		if (i >= min && i < max)
+		if (i >= min && i <= max)
 			apply_right_texture(thread, i);
 		else if (i <= min)
 			thread->data->texturetab[ret] = 0X87CEEB;
