@@ -59,12 +59,12 @@ static int	init_texture(t_wolf *data)
 				, SDL_GetError());
 		return (leave_sdl_and_program(data, 1));
 	}
-//	if (SDL_ShowCursor(SDL_DISABLE) < 0)
-//	{
-//		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't hide cursor: %s"
-//				, SDL_GetError());
-//		return (leave_sdl_and_program(data, 1));
-//	}
+	if (SDL_ShowCursor(SDL_DISABLE) < 0)
+	{
+		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't hide cursor: %s"
+				, SDL_GetError());
+		return (leave_sdl_and_program(data, 1));
+	}
 	if (load_textures(data))
 		return (1);
 	return (0);
@@ -132,7 +132,7 @@ int			init_sdl_and_program(t_wolf *data)
 	}
 	if (!(data->window = SDL_CreateWindow("Wolfenstein", SDL_WINDOWPOS_CENTERED
 					, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT
-					, SDL_WINDOW_SHOWN)))
+					, SDL_WINDOW_FULLSCREEN)))
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window: %s"
 				, SDL_GetError());
@@ -145,6 +145,6 @@ int			init_sdl_and_program(t_wolf *data)
 				, "Couldn't create renderer: %s", SDL_GetError());
 		return (leave_sdl_and_program(data, 1));
 	}
-//	SDL_SetRelativeMouseMode(SDL_TRUE);
+	SDL_SetRelativeMouseMode(SDL_TRUE);
 	return (init_texture(data));
 }

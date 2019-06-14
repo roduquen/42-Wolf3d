@@ -16,8 +16,8 @@
 # include <SDL.h>
 # include <pthread.h>
 
-# define WIN_WIDTH	2560
-# define WIN_HEIGHT	1440
+# define WIN_WIDTH	1280
+# define WIN_HEIGHT	720
 # define CAMERA_FOV	60
 # define NBR_THREAD	4
 
