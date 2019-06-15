@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/13 19:28:49 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/15 12:43:53 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <SDL.h>
 # include <pthread.h>
 
-# define WIN_WIDTH	1280
-# define WIN_HEIGHT	720
+# define WIN_WIDTH	2560
+# define WIN_HEIGHT	1440
 # define CAMERA_FOV	60
 # define NBR_THREAD	4
 

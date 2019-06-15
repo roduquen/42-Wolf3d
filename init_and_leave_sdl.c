@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:04 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/14 11:42:11 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/06/15 12:43:10 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int			init_sdl_and_program(t_wolf *data)
 	}
 	if (!(data->window = SDL_CreateWindow("Wolfenstein", SDL_WINDOWPOS_CENTERED
 					, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT
-					, SDL_WINDOW_FULLSCREEN)))
+					, SDL_WINDOW_SHOWN)))
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window: %s"
 				, SDL_GetError());
