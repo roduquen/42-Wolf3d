@@ -6,7 +6,7 @@
 /*   By: mbenjell <mbenjell@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 11:32:32 by mbenjell          #+#    #+#             */
-/*   Updated: 2019/06/11 16:29:14 by mbenjell         ###   ########.fr       */
+/*   Updated: 2019/06/12 23:31:29 by mbenjell         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ static int 			calcul_index(t_thread *thread, int line)
 	int				end;
 	t_vec2d			step;
 
+
 	index = -1;
 	step = thread->ray.step;
 	dist = sqrt(step.x * step.x + step.y * step.y);
-	start = (WIN_HEIGHT - (WIN_HEIGHT / dist)) / 2;
-	end = (WIN_HEIGHT + (WIN_HEIGHT / dist)) / 2;
+	start = (WIN_HEIGHT - (WIN_HEIGHT / dist));
+	end = (WIN_HEIGHT + (WIN_HEIGHT / dist));
 	// Condition sprite
 	if (line > start && line < end)
 		index =	abs(rand() % 100);
@@ -45,7 +46,6 @@ static int 			calcul_index(t_thread *thread, int line)
 void 				apply_sprites(t_thread *thread, int type, int i)
 {
 	t_wolf			*data;
-	// t_ray			*ray;
 	unsigned int	*img;
 	unsigned int 	*sprite;
 	int 			index;
