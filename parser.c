@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 01:19:18 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/11 01:11:02 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/08 14:22:50 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static int	check_if_well_formated(char *map)
 	player = 0;
 	while (map[i])
 	{
-		if (ft_strchr("><^v", map[i]))
+		if (ft_memchr("><^v", map[i], 4))
 			player++;
-		else if (!ft_strchr("\n.0123456789abcdefghijkl", map[i]))
+		else if (!ft_memchr("\n.0123456789abcdefghijkl", map[i], 24))
 			return (1);
 		i++;
 	}

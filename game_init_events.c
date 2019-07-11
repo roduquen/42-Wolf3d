@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 09:33:13 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/10 23:56:29 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/11 00:44:50 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <SDL.h>
 #include "libft.h"
 
-void		init_events(t_wolf *data)
+void			init_events(t_wolf *data)
 {
 	if (data->options == MENU_QUIT)
 		data->running = 0;
@@ -28,7 +28,7 @@ void		init_events(t_wolf *data)
 		data->state = 5;
 }
 
-void		create_string_map(char *str, char number[], int nb)
+void			create_string_map(char *str, char number[], int nb)
 {
 	int		i;
 
@@ -47,11 +47,32 @@ void		create_string_map(char *str, char number[], int nb)
 	number[i] = 0;
 }
 
-
-void		init_game(t_wolf *data)
+static void		init_player_position(t_wolf *data)
 {
 	int			i;
 	int			j;
+
+	i = 0;
+	while (data->board[i])
+	{
+		j = 0;
+		while (data->board[i][j])
+		{
+			if (ft_memchr("^><v", data->board[i][j], 4))
+			{
+				data->camera.position.x = i + 0.5;
+				data->camera.position.y = j + 0.5;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+void			init_game(t_wolf *data)
+{
+	int			i;
 	char		number[100];
 
 	number[0] = data->actual_new_game + '1';
@@ -70,28 +91,12 @@ void		init_game(t_wolf *data)
 	if (parsing_maps(data, number))
 		exit(1);
 	data->state = 6;
-	i = 0;
-	while (data->board[i])
-	{
-		j = 0;
-		while (data->board[i][j])
-		{
-			if (ft_strchr("^><v", data->board[i][j]))
-			{
-				data->camera.position.x = i + 0.5;
-				data->camera.position.y = j + 0.5;
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
+	init_player_position(data);
 }
 
 void			init_floor_change(t_wolf *data)
 {
 	int			i;
-	int			j;
 	char		number[100];
 
 	data->actual_floor++;
@@ -107,20 +112,5 @@ void			init_floor_change(t_wolf *data)
 	if (parsing_maps(data, number))
 		exit(1);
 	data->state = 6;
-	i = 0;
-	while (data->board[i])
-	{
-		j = 0;
-		while (data->board[i][j])
-		{
-			if (ft_strchr("^><v", data->board[i][j]))
-			{
-				data->camera.position.x = i + 0.5;
-				data->camera.position.y = j + 0.5;
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
+	init_player_position(data);
 }

@@ -6,48 +6,12 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:04 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/15 12:43:10 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/11 03:04:09 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <SDL.h>
 #include "wolf.h"
-#include <stdio.h>
-
-int			leave_sdl_and_program(t_wolf *data, int type)
-{
-	int			i;
-
-	i = 0;
-	if (data->texture)
-		SDL_DestroyTexture(data->texture);
-	if (data->renderer)
-		SDL_DestroyRenderer(data->renderer);
-	if (data->window)
-		SDL_DestroyWindow(data->window);
-	SDL_Quit();
-	if (data->map)
-		free(data->map);
-	if (data->board)
-	{
-		while (data->board[i])
-			free(data->board[i++]);
-		free(data->board);
-	}
-	i = -1;
-	while (++i < TEXTURE_NB + SPRITE_NB)
-	{
-		if (data->surfaces[i])
-			SDL_FreeSurface(data->surfaces[i]);
-	}
-	i = -1;
-	while (++i < MENU_NB)
-	{
-		if (data->menu[i])
-			SDL_DestroyTexture(data->menu[i]);
-	}
-	return (type);
-}
 
 static int	init_texture(t_wolf *data)
 {
@@ -74,22 +38,23 @@ static void	init_camera_pos_and_direction(t_wolf *data, int line, int column)
 {
 	data->camera.position = (t_vec2d){line + 0.5, column + 0.5};
 	if (data->board[line][column] == '^')
-		data->camera.angle = 0.0;
-	else if (data->board[line][column] == '<')
 		data->camera.angle = 90.0;
-	else if (data->board[line][column] == 'v')
+	else if (data->board[line][column] == '<')
 		data->camera.angle = 180.0;
-	else if (data->board[line][column] == '>')
+	else if (data->board[line][column] == 'v')
 		data->camera.angle = 270.0;
-	data->camera.direction = vec2d_rotate(vec2d(-1, 0)
+	else if (data->board[line][column] == '>')
+		data->camera.angle = 0.0;
+	data->camera.direction = vec2d_rotate(vec2d(0, 1)
 			, to_radian(data->camera.angle));
-	data->camera.plane = vec2d_rotate(vec2d(0, 0.66)
-			, to_radian(data->camera.angle));
+	data->camera.plane = vec2d_scalar(vec2d_rotate(vec2d(1, 0)
+			, to_radian(data->camera.angle)), 2.0 / 3.0);
 	data->board[line][column] = '.';
 	data->win_height = WIN_HEIGHT;
 	data->win_width = WIN_WIDTH;
 	data->camera.move_speed = 0.1;
 	data->camera.angle_speed = 0.05;
+	full_background_tab(data);
 }
 
 void		init_data_and_camera(t_wolf *data)
@@ -132,7 +97,7 @@ int			init_sdl_and_program(t_wolf *data)
 	}
 	if (!(data->window = SDL_CreateWindow("Wolfenstein", SDL_WINDOWPOS_CENTERED
 					, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT
-					, SDL_WINDOW_SHOWN)))
+					, SDL_WINDOW_FULLSCREEN)))
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window: %s"
 				, SDL_GetError());

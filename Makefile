@@ -1,27 +1,52 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: roduquen <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/07/11 00:37:10 by roduquen          #+#    #+#              #
+#    Updated: 2019/07/11 02:59:09 by roduquen         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC = clang
+
 LOGIN = `whoami`
-CFLAGS = -Wall -Wextra -Werror -O2 -Ofast -g3
+
+CFLAGS = -Wall -Wextra -Werror -O2 -Ofast
+
 NAME = wolf3d
+
 SRCDIR = ./
+
 INCLDIR = ./includes/
+
 LIBDIR = ./libft/
+
 LIB = $(LIBDIR)libft.a
+
 LIBSDL = -L /Users/$(LOGIN)/.brew/lib/ -lSDL2-2.0.0 `sdl2-config --cflags --libs`
-SRCS = wolf3d.c \
-	   init_and_leave_sdl.c \
-	   parser.c \
-	   commands.c \
-	   maths.c \
-	   raycasting.c \
-	   camera.c \
-	   vec2d.c \
-	   texture.c \
-	   utils.c \
-	   apply_textures.c \
-	   path_to_textures.c \
-	   game_states.c \
-	   game_init_events.c \
+
+SRCS = wolf3d.c					\
+	   init_program.c			\
+	   create_background.c		\
+	   leave_program.c			\
+	   parser.c					\
+	   commands.c				\
+	   maths.c					\
+	   raycasting.c				\
+	   camera.c					\
+	   vec2d.c					\
+	   texture.c				\
+	   utils.c					\
+	   apply_textures.c			\
+	   path_to_textures.c		\
+	   game_states.c			\
+	   game_states_options.c	\
+	   game_init_events.c		\
 	   in_game_commands.c
+
 OBJ = $(notdir $(SRCS:.c=.o))
 
 all : $(NAME)

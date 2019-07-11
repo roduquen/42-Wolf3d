@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/10 12:47:47 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/11 13:29:20 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/11 00:31:16 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	door_opening_system(t_wolf *data, t_vec2d pos)
 	{
 		data->board[(int)pos.x - 1][(int)pos.y] = 'l';
 	}
-	if (pos.x + 1 < data->map_width && data->board[(int)pos.x + 1][(int)pos.y] == '0')
+	if (pos.x + 1 < data->map_width && data->board[(int)pos.x + 1][(int)pos.y]
+		== '0')
 	{
 		data->board[(int)pos.x + 1][(int)pos.y] = 'l';
 	}
@@ -27,7 +28,8 @@ static void	door_opening_system(t_wolf *data, t_vec2d pos)
 	{
 		data->board[(int)pos.x][(int)pos.y - 1] = 'l';
 	}
-	if (pos.y + 1 < data->map_height && data->board[(int)pos.x][(int)pos.y + 1] == '0')
+	if (pos.y + 1 < data->map_height && data->board[(int)pos.x][(int)pos.y + 1]
+		== '0')
 	{
 		data->board[(int)pos.x][(int)pos.y + 1] = 'l';
 	}
@@ -35,22 +37,26 @@ static void	door_opening_system(t_wolf *data, t_vec2d pos)
 
 void		active_commands(t_wolf *data, t_vec2d pos)
 {
-	if (pos.x - 1 > 0 && ft_strchr("123456789", data->board[(int)pos.x - 1][(int)pos.y]))
+	if (pos.x - 1 > 0 && ft_memchr("123456789"
+			, data->board[(int)pos.x - 1][(int)pos.y], 9))
 	{
 		data->actual_floor = data->board[(int)pos.x - 1][(int)pos.y] - 47;
 		init_floor_change(data);
 	}
-	if (pos.x + 1 < data->map_width && ft_strchr("123456789", data->board[(int)pos.x + 1][(int)pos.y]))
+	if (pos.x + 1 < data->map_width && ft_memchr("123456789"
+			, data->board[(int)pos.x + 1][(int)pos.y], 9))
 	{
 		data->actual_floor = data->board[(int)pos.x + 1][(int)pos.y] - 47;
 		init_floor_change(data);
 	}
-	if (pos.y - 1 > 0 && ft_strchr("123456789", data->board[(int)pos.x][(int)pos.y - 1]))
+	if (pos.y - 1 > 0 && ft_memchr("123456789"
+			, data->board[(int)pos.x][(int)pos.y - 1], 9))
 	{
 		data->actual_floor = data->board[(int)pos.x][(int)pos.y - 1] - 47;
 		init_floor_change(data);
 	}
-	if (pos.y + 1 < data->map_height && ft_strchr("123456789",data->board[(int)pos.x][(int)pos.y + 1]))
+	if (pos.y + 1 < data->map_height
+		&& ft_memchr("123456789", data->board[(int)pos.x][(int)pos.y + 1], 9))
 	{
 		data->actual_floor = data->board[(int)pos.x][(int)pos.y + 1] - 47;
 		init_floor_change(data);

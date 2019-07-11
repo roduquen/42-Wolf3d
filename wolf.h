@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/15 12:43:53 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/11 02:58:52 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <SDL.h>
 # include <pthread.h>
 
-# define WIN_WIDTH	2560
-# define WIN_HEIGHT	1440
+# define WIN_WIDTH	1920
+# define WIN_HEIGHT	1080
 # define CAMERA_FOV	60
 # define NBR_THREAD	4
 
@@ -33,13 +33,14 @@
 
 # define WALLS		"123456789abcdefghijklmx"
 
+# define DIST_VIEW	50
+
 # define CAMERA_RIGHT (1)
 # define CAMERA_LEFT (1 << 1)
 # define CAMERA_FRONT (1 << 2)
 # define CAMERA_BACK (1 << 3)
 
-
-typedef struct	s_wolf		t_wolf;
+typedef struct s_wolf		t_wolf;
 
 typedef struct				s_vec2d
 {
@@ -70,6 +71,7 @@ typedef struct				s_ray
 	int			x_tex;
 	int			y_tex;
 	double		orto;
+	double		wall_size[NBR_THREAD];
 	t_vec2d		delta;
 	t_vec2d		step;
 	int			side;
@@ -93,6 +95,7 @@ struct						s_wolf
 	int				win_height;
 	int				win_width;
 	unsigned int	*texturetab;
+	unsigned int	background[WIN_HEIGHT];
 	SDL_Event		event;
 	SDL_bool		running;
 	char			*map;
@@ -126,6 +129,7 @@ void						add_textures_path(t_wolf *data);
 int							load_textures(t_wolf *data);
 int							parsing_maps(t_wolf *data, char *path);
 void						fill_map(t_wolf *data, int size, char *tmp, int i);
+void						full_background_tab(t_wolf *data);
 
 /*
 ** COMMANDS
@@ -173,8 +177,10 @@ t_vec2d						vec2d(double x, double y);
 int							raycasting(t_wolf *data);
 void						*calcul_ray_by_thread(void *data);
 void						draw_pixel_column(t_thread *thread);
-void						apply_textures(t_thread *thread, int type, int i);
-void						apply_right_texture(t_thread *thread, int i);
+void						apply_textures(t_thread *thread, int type, int i
+	, int ret);
+void						apply_right_texture(t_thread *thread, int i
+	, int ret);
 
 /*
 ** UTILS

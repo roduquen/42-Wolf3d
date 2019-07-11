@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 13:45:50 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 19:48:23 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/08 16:51:36 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ void	*calcul_ray_by_thread(void *data)
 	t_thread		*thread;
 
 	thread = (t_thread*)data;
-	while (thread->num < thread->data->win_width)
+	while (thread->num < WIN_WIDTH)
 	{
-		thread->ray.camx = 2 * thread->num
-			/ (double)thread->data->win_width - 1;
+		thread->ray.camx = 2 * thread->num / (double)WIN_WIDTH - 1;
 		thread->ray.direction.x = thread->data->camera.direction.x
 			+ thread->data->camera.plane.x * thread->ray.camx;
 		thread->ray.direction.y = thread->data->camera.direction.y
@@ -53,5 +52,6 @@ void	*calcul_ray_by_thread(void *data)
 		draw_pixel_column(thread);
 		thread->num += NBR_THREAD;
 	}
+	return (data);
 	pthread_exit(0);
 }

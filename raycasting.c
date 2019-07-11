@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 04:45:52 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/14 11:19:16 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/11 03:01:37 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static void	step_loop(t_thread *thread)
 			thread->ray.y_map += thread->ray.step.y;
 			thread->ray.side = 1;
 		}
-		if (!ft_strchr(".0"
-				, thread->data->board[thread->ray.x_map][thread->ray.y_map]))
+		if (!ft_memchr(".0"
+				, thread->data->board[thread->ray.x_map][thread->ray.y_map], 2))
 			thread->ray.hit = 1;
 	}
 	if (thread->ray.side == 0)
@@ -80,12 +80,13 @@ static void	launch_ray_and_get_dist_and_orientation(t_thread *thread
 	thread->ray.delta.y = fabs(1 / thread->ray.direction.y);
 	init_and_compute_steps(thread);
 	step_loop(thread);
-	*min = (thread->data->win_height - thread->ray.height) / 2;
+	*min = ((double)WIN_HEIGHT - (double)thread->ray.height) / 2.0;
 	if (*min < 0)
 		*min = 0;
-	*max = (thread->ray.height + thread->data->win_height) / 2;
-	if (*max >= thread->data->win_height)
-		*max = thread->data->win_height - 1;
+	*max = ((double)thread->ray.height + (double)WIN_HEIGHT) / 2.0;
+	if (*max >= WIN_HEIGHT)
+		*max = WIN_HEIGHT - 1;
+	thread->ray.wall_size[thread->num % NBR_THREAD] = *max - *min;
 	*i = -1;
 }
 
@@ -97,15 +98,13 @@ void		draw_pixel_column(t_thread *thread)
 	int				i;
 
 	launch_ray_and_get_dist_and_orientation(thread, &min, &max, &i);
-	while (++i < thread->data->win_height)
+	while (++i < WIN_HEIGHT)
 	{
-		ret = i * thread->data->win_width + thread->num;
-		if (i >= min && i <= max)
-			apply_right_texture(thread, i);
-		else if (i <= min)
-			thread->data->texturetab[ret] = 0X87CEEB;
+		ret = i * WIN_WIDTH + thread->num;
+		if (i >= min && i < max)
+			apply_right_texture(thread, i, ret);
 		else
-			thread->data->texturetab[ret] = 0x828282;
+			thread->data->texturetab[ret] = thread->data->background[i];
 	}
 }
 
@@ -115,7 +114,6 @@ int			raycasting(t_wolf *data)
 	t_thread	thread[NBR_THREAD];
 
 	i = 0;
-	ft_memset(data->texturetab, 0, 3686400);
 	while (i < NBR_THREAD)
 	{
 		(thread[i]).data = data;
