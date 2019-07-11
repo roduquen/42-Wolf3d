@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/11 02:58:52 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/11 19:02:22 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ struct						s_wolf
 	int				map_width;
 	int				map_height;
 	t_camera		camera;
-	SDL_Surface		*surfaces[TEXTURE_NB + SPRITE_NB];
+	SDL_Surface		*surfaces[TEXTURE_NB + SPRITE_NB + MENU_NB];
 	SDL_Texture		*menu[MENU_NB];
 	char			*texture_path[TEXTURE_NB];
 	char			*sprite_path[SPRITE_NB];

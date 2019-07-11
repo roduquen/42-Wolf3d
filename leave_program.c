@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 00:34:33 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/11 00:35:19 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/11 19:02:42 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	free_surface_and_texture(t_wolf *data, int type)
 	int		i;
 
 	i = 0;
-	while (i < TEXTURE_NB + SPRITE_NB)
+	while (i < TEXTURE_NB + SPRITE_NB + MENU_NB)
 	{
 		if (data->surfaces[i])
 			SDL_FreeSurface(data->surfaces[i]);
