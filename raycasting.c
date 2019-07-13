@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 04:45:52 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/13 19:48:12 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/13 20:01:40 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,26 +90,6 @@ static void	launch_ray_and_get_dist_and_orientation(t_thread *thread
 	*i = -1;
 }
 
-int		add_minimap_color(t_thread *thread, int	i)
-{
-	int			pos[2];
-
-	pos[0] = (int)thread->data->camera.position.x - thread->num / 16 + 8;
-	pos[1] = (int)thread->data->camera.position.y - i / 16 + 8;
-	if (pos[0] < 0 || pos[1] < 0)
-		return (0x123456);
-	if (pos[1] >= thread->data->map_width || pos[0] >= thread->data->map_height)
-		return (0x123456);
-	if ((thread->data->board[pos[0]][pos[1]] >= '1' && thread->data->board[pos[0]][pos[1]] <= '9') || thread->data->board[pos[0]][pos[1]] == 'k')
-		return (0x7F7F7F);
-	if (thread->data->board[pos[0]][pos[1]] != '.' && thread->data->board[pos[0]][pos[1]] != '0')
-		return (0x654987);
-	if (thread->data->board[pos[0]][pos[1]] == '0')
-		return (0x789456);
-	return (0);
-}
-
-
 void		draw_pixel_column(t_thread *thread)
 {
 	int					min;
@@ -121,19 +101,16 @@ void		draw_pixel_column(t_thread *thread)
 	while (++i < WIN_HEIGHT)
 	{
 		ret = i * WIN_WIDTH + thread->num;
-		if (thread->num < 16 || thread->num > WIN_WIDTH - 16 || i < 16 || i > WIN_HEIGHT - 16 || (i > WIN_HEIGHT - 166 && i < WIN_HEIGHT - 150))
+		if (thread->num < 16 || thread->num > WIN_WIDTH - 16 || i < 16
+			|| i > WIN_HEIGHT - 16
+			|| (i > WIN_HEIGHT - 166 && i < WIN_HEIGHT - 150))
 			thread->data->texturetab[ret] = 0x555555;
-		else if (thread->num == 16 || thread->num == WIN_WIDTH - 16 || i == 16 || i == WIN_HEIGHT - 16 || i == WIN_HEIGHT - 150 || i == WIN_HEIGHT - 166)
+		else if (thread->num == 16 || thread->num == WIN_WIDTH - 16
+			|| i == 16 || i == WIN_HEIGHT - 16 || i == WIN_HEIGHT - 150
+			|| i == WIN_HEIGHT - 166)
 			thread->data->texturetab[ret] = 0;
 		else if (thread->num < 255 && i < 255)
-		{
-			if (i >= 128 && i < 143 && thread->num >= 128 && thread->num < 143)
-				thread->data->texturetab[ret] = 0xFF0000;
-			else if (i % 16 != 15 && thread->num % 16 != 15 && i != 0 && thread->num != 0)
-				thread->data->texturetab[ret] = add_minimap_color(thread, i);
-			else
-				thread->data->texturetab[ret] = 0xFFFFFF;
-		}
+			add_map(thread, i, ret);
 		else if (i >= WIN_HEIGHT - 150)
 		{
 			if (thread->num >= 1536 && thread->num <= 1572

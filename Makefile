@@ -6,7 +6,7 @@
 #    By: roduquen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/11 00:37:10 by roduquen          #+#    #+#              #
-#    Updated: 2019/07/11 19:05:59 by roduquen         ###   ########.fr        #
+#    Updated: 2019/07/13 20:02:02 by roduquen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRCS = wolf3d.c					\
 	   game_states.c			\
 	   game_states_options.c	\
 	   game_init_events.c		\
-	   in_game_commands.c
+	   in_game_commands.c		\
+	   minimap.c
 
 OBJ = $(notdir $(SRCS:.c=.o))
 

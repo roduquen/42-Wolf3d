@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/13 18:56:07 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/13 20:02:38 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ void						apply_textures(t_thread *thread, int type, int i
 	, int ret);
 void						apply_right_texture(t_thread *thread, int i
 	, int ret);
+void						add_map(t_thread *thread, int i, int ret);
 
 /*
 ** UTILS
