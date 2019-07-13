@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/11 19:02:22 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/13 18:56:07 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ struct						s_wolf
 	int				actual_control;
 	int				actual_sound;
 	int				actual_floor;
-	t_thread		thread[NBR_THREAD];
 };
 
 /*
