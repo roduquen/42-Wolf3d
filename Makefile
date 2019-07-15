@@ -6,7 +6,7 @@
 #    By: roduquen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/11 00:37:10 by roduquen          #+#    #+#              #
-#    Updated: 2019/07/15 17:52:59 by roduquen         ###   ########.fr        #
+#    Updated: 2019/07/15 21:53:28 by roduquen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ SRCS = wolf3d.c					\
 
 OBJ = $(notdir $(SRCS:.c=.o))
 
-all : $(NAME)
+all :
+	@make -j $(NAME)
 
 $(NAME) : $(OBJ) $(LIB)
 	@$(CC) $(CFLAGS) -I $(INCLDIR) $^ -o $@ -L $(LIBDIR) -lft $(LIBSDL)

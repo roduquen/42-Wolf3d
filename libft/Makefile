@@ -92,7 +92,8 @@ SRCS = $(SRCDIR)ft_atoi.c \
 OBJS_ = $(SRCS:.c=.o)
 OBJS = $(notdir $(OBJS_))
 
-all : $(NAME)
+all :
+	@make -j $(NAME)
 
 $(NAME) : $(SRCS)
 	@make objects
