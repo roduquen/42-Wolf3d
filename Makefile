@@ -6,7 +6,7 @@
 #    By: roduquen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/11 00:37:10 by roduquen          #+#    #+#              #
-#    Updated: 2019/07/13 20:02:02 by roduquen         ###   ########.fr        #
+#    Updated: 2019/07/15 17:52:59 by roduquen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ CC = clang
 
 LOGIN = `whoami`
 
-CFLAGS = -Wall -Wextra -Werror -O2 -Ofast
+CFLAGS = -Wall -Wextra -Werror -Ofast
 
 NAME = wolf3d
 
@@ -26,7 +26,7 @@ LIBDIR = ./libft/
 
 LIB = $(LIBDIR)libft.a
 
-LIBSDL = -L /Users/$(LOGIN)/.brew/lib/ -lSDL2-2.0.0 `sdl2-config --cflags --libs`
+LIBSDL = -L /Users/$(LOGIN)/.brew/lib/ -lSDL2-2.0.0 -lSDL2_ttf-2.0.0 -lSDL2_image-2.0.0 `sdl2-config --cflags --libs`
 
 SRCS = wolf3d.c					\
 	   init_program.c			\
@@ -46,7 +46,8 @@ SRCS = wolf3d.c					\
 	   game_states_options.c	\
 	   game_init_events.c		\
 	   in_game_commands.c		\
-	   minimap.c
+	   minimap.c				\
+	   doors_move.c
 
 OBJ = $(notdir $(SRCS:.c=.o))
 

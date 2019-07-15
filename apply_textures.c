@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/07 14:41:44 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/11 02:06:45 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/15 21:14:25 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void		add_color_to_pixel_with_dist(t_thread *thread, int type, int i
 	int		color[3];
 	double	gradient;
 
-	pos = i * WIN_WIDTH + thread->num;
+	pos = i * WIDTH + thread->num;
 	if (thread->ray.wall_size[thread->num % NBR_THREAD] < DIST_VIEW)
 	{
 		thread->data->texturetab[pos] = 0;
@@ -63,7 +63,7 @@ static void		add_color_to_pixel_with_dist(t_thread *thread, int type, int i
 	thread->data->texturetab[pos] =
 		((unsigned int*)thread->data->surfaces[type]->pixels)
 		[(int)(64 * thread->ray.y_tex + thread->ray.x_tex)];
-	if (thread->ray.wall_size[thread->num % NBR_THREAD] > (WIN_HEIGHT >> 1))
+	if (thread->ray.wall_size[thread->num % NBR_THREAD] > (HEIGHT >> 1))
 		return ;
 	color[0] = (thread->data->texturetab[pos] & 0xFF);
 	color[1] = ((thread->data->texturetab[pos] & 0xFF00) >> 8);
@@ -90,7 +90,7 @@ void			apply_textures(t_thread *thread, int type, int i, int ret)
 	if ((thread->ray.side == 0 && thread->ray.direction.x > 0)
 		|| (thread->ray.side == 1 && thread->ray.direction.y < 0))
 		thread->ray.x_tex = 63 - thread->ray.x_tex;
-	thread->ray.y_tex = (i * 64 - WIN_HEIGHT * 32 + thread->ray.height * 32)
+	thread->ray.y_tex = (i * 64 - HEIGHT * 32 + thread->ray.height * 32)
 		/ thread->ray.height;
 	add_color_to_pixel_with_dist(thread, type, i, ret);
 }

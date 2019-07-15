@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 00:34:33 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/11 19:02:42 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/15 21:15:23 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 static int	free_surface_and_texture(t_wolf *data, int type)
 {
 	int		i;
+	t_door	*tmp;
 
 	i = 0;
 	while (i < TEXTURE_NB + SPRITE_NB + MENU_NB)
@@ -30,6 +31,12 @@ static int	free_surface_and_texture(t_wolf *data, int type)
 		if (data->menu[i])
 			SDL_DestroyTexture(data->menu[i]);
 		i++;
+	}
+	while (data->doors)
+	{
+		tmp = data->doors;
+		data->doors = data->doors->next;
+		free(tmp);
 	}
 	return (type);
 }

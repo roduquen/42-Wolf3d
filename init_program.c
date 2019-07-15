@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 09:49:04 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/11 03:04:09 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/15 21:15:17 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	init_texture(t_wolf *data)
 {
 	if (!(data->texture = SDL_CreateTexture(data->renderer
 					, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING
-					, WIN_WIDTH, WIN_HEIGHT)))
+					, WIDTH, HEIGHT)))
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture: %s"
 				, SDL_GetError());
@@ -50,8 +50,8 @@ static void	init_camera_pos_and_direction(t_wolf *data, int line, int column)
 	data->camera.plane = vec2d_scalar(vec2d_rotate(vec2d(1, 0)
 			, to_radian(data->camera.angle)), 2.0 / 3.0);
 	data->board[line][column] = '.';
-	data->win_height = WIN_HEIGHT;
-	data->win_width = WIN_WIDTH;
+	data->win_height = HEIGHT;
+	data->win_width = WIDTH;
 	data->camera.move_speed = 0.1;
 	data->camera.angle_speed = 0.05;
 	full_background_tab(data);
@@ -96,7 +96,7 @@ int			init_sdl_and_program(t_wolf *data)
 		return (1);
 	}
 	if (!(data->window = SDL_CreateWindow("Wolfenstein", SDL_WINDOWPOS_CENTERED
-					, SDL_WINDOWPOS_CENTERED, WIN_WIDTH, WIN_HEIGHT
+					, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT
 					, SDL_WINDOW_FULLSCREEN)))
 	{
 		SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Couldn't create window: %s"

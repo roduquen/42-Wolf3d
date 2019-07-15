@@ -6,13 +6,22 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 03:49:49 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/11 00:47:19 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/15 21:14:38 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #include <SDL.h>
 #include "libft.h"
+
+static void	shot_event(t_wolf *data)
+{
+	if (data->event.button.button == SDL_BUTTON_LEFT)
+	{
+		data->shot_time = SDL_GetTicks();
+		data->shot = 64;
+	}
+}
 
 void		sdl_events_hook(t_wolf *data)
 {
@@ -31,15 +40,25 @@ void		sdl_events_hook(t_wolf *data)
 		camera_upkey_event(data);
 	else if (data->event.type == SDL_MOUSEMOTION)
 		camera_mouse_event(data);
+	else if (data->event.type == SDL_MOUSEBUTTONDOWN)
+		shot_event(data);
 }
 
-void		frame_calculator(unsigned int actual)
+void		frame_calculator(unsigned int actual, t_wolf *data)
 {
 	static unsigned int	frame = 0;
 	static unsigned int	time = 0;
 
+	if (data->shot)
+	{
+		if (data->shot == 64 && actual - data->shot_time > 125)
+			data->shot = 128;
+		else if (data->shot == 128 && actual - data->shot_time > 250)
+			data->shot = 0;
+	}
 	if (actual - time > 1000)
 	{
+		close_door(data);
 		ft_putstr("FPS : ");
 		ft_putnbr(frame);
 		ft_putchar('\n');

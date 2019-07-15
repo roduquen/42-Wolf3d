@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 08:01:50 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/11 00:39:29 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/15 21:15:03 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ int		game_running(t_wolf *data)
 			sdl_events_hook(data);
 		camera_carry_event(data, data->camera.direction);
 	}
-	frame_calculator(SDL_GetTicks());
+	frame_calculator(SDL_GetTicks(), data);
 	return (0);
 }

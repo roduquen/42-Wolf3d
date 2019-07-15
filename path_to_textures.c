@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 01:48:20 by roduquen          #+#    #+#             */
-/*   Updated: 2019/06/09 13:57:45 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/15 21:15:42 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	add_sprite_path(t_wolf *data)
 {
 	data->sprite_path[0] = "./textures/sprites/greenlight.bmp";
 	data->sprite_path[1] = "./textures/sprites/pillar.bmp";
+	data->sprite_path[2] = "./textures/sprites/weapons.bmp";
 }
 
 static void	add_new_game_menu_path(t_wolf *data)

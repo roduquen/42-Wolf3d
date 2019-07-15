@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/09 09:33:13 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/11 00:44:50 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/15 21:14:59 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,15 @@ void			init_floor_change(t_wolf *data)
 {
 	int			i;
 	char		number[100];
+	t_door		*tmp;
 
 	data->actual_floor++;
+	while (data->doors)
+	{
+		tmp = data->doors;
+		data->doors = data->doors->next;
+		free(tmp);
+	}
 	ft_strcpy(number, "./maps/wolfenstein/episode1/floor1");
 	number[ft_strlen(number) - 1] = data->actual_floor + 47;
 	i = 0;

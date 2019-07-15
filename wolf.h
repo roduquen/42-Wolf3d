@@ -6,7 +6,7 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/28 00:25:42 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/13 20:02:38 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/15 21:30:08 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,14 @@
 # include <SDL.h>
 # include <pthread.h>
 
-# define WIN_WIDTH	1920
-# define WIN_HEIGHT	1080
+# define WIDTH		1920
+# define HEIGHT		1080
+# define BLOCK		WIDTH / 120
 # define CAMERA_FOV	60
 # define NBR_THREAD	4
 
 # define TEXTURE_NB	13
-# define SPRITE_NB	2
+# define SPRITE_NB	3
 # define MENU_NB	42
 
 # define MENU_NEW	1
@@ -31,7 +32,7 @@
 # define MENU_READ	6
 # define MENU_QUIT	8
 
-# define WALLS		"123456789abcdefghijklmx"
+# define WALLS		"123456789abcdefghijkl0"
 
 # define DIST_VIEW	50
 
@@ -87,6 +88,14 @@ typedef struct				s_thread
 	pthread_t	thread;
 }							t_thread;
 
+typedef struct				s_door
+{
+	struct s_door	*next;
+	unsigned long	time;
+	int				x;
+	int				y;
+}							t_door;
+
 struct						s_wolf
 {
 	SDL_Texture		*texture;
@@ -95,13 +104,16 @@ struct						s_wolf
 	int				win_height;
 	int				win_width;
 	unsigned int	*texturetab;
-	unsigned int	background[WIN_HEIGHT];
+	unsigned int	background[HEIGHT];
 	SDL_Event		event;
 	SDL_bool		running;
 	char			*map;
 	int				map_width;
 	int				map_height;
+	t_door			*doors;
 	t_camera		camera;
+	int				shot;
+	unsigned long	shot_time;
 	SDL_Surface		*surfaces[TEXTURE_NB + SPRITE_NB + MENU_NB];
 	SDL_Texture		*menu[MENU_NB];
 	char			*texture_path[TEXTURE_NB];
@@ -144,6 +156,8 @@ void						init_events(t_wolf *data);
 void						init_game(t_wolf *data);
 void						active_commands(t_wolf *data, t_vec2d pos);
 void						init_floor_change(t_wolf *data);
+void						close_door(t_wolf *data);
+void						doors_move(t_wolf *data, int x, int y);
 
 /*
 ** GAME STATE
@@ -181,11 +195,13 @@ void						apply_textures(t_thread *thread, int type, int i
 void						apply_right_texture(t_thread *thread, int i
 	, int ret);
 void						add_map(t_thread *thread, int i, int ret);
+void						add_hud_blocks(t_thread *thread, int i, int ret);
+void						add_weapon_to_screen(t_thread *thread);
 
 /*
 ** UTILS
 */
 
-void						frame_calculator(unsigned int actual);
+void						frame_calculator(unsigned int actual, t_wolf *data);
 
 #endif
