@@ -6,12 +6,11 @@
 /*   By: roduquen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/11 02:51:48 by roduquen          #+#    #+#             */
-/*   Updated: 2019/07/15 21:14:46 by roduquen         ###   ########.fr       */
+/*   Updated: 2019/07/18 21:52:32 by roduquen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
-#include <stdio.h>
 
 static void	fill_bg_tab(int color[3], int i, t_wolf *data, double gradient)
 {
